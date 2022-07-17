@@ -1,4 +1,4 @@
-fimport Footer from '../../components/common/footer/footer';
+import Footer from '../../components/common/footer/footer';
 
 function SignIn(): JSX.Element {
   return (
