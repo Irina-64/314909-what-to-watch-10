@@ -1,5 +1,5 @@
-import {NavLink} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import { NavLink } from 'react-router-dom';
+import { AppRoute } from '../../const/enums';
 
 function PlayButton(): JSX.Element {
   return (
