@@ -5,7 +5,8 @@ type MainProps = {
   promo: Film;
   movies: readonly Film[];
   genres: readonly string[];
-  myMovies: Film[]
+  myMovies: Film[];
+  randomMovie: Film
 }
 
 type ReviewProps = {
