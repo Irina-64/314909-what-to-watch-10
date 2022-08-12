@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const/enums';
+import { AppRoute, AuthorizationStatus } from '../components/app/app';
 import AddReviewPage from '../../pages/add-review/add-review';
 import LoginPage from '../../pages/login/login';
 import MainPage from '../../pages/main/main';
@@ -29,7 +29,7 @@ const App = (MainPageProps: MainProps) => (
         </Route>
 
         <Route path={AppRoute.Movie}>
-          <Route index element={<MoviePage {...MainPageProps}/>} />
+          <Route index element={<MoviePage {...MainPageProps} />} />
         </Route>
 
         <Route path={AppRoute.AddReview}>
@@ -40,7 +40,7 @@ const App = (MainPageProps: MainProps) => (
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <MyListPage {...MainPageProps.myMovies}/>
+              <MyListPage {...MainPageProps.myMovies} />
             </PrivateRoute>
           }
         />
