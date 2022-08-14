@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TListElement from '../../../types/list-element';
-import Film from '../../../types/film';
-import { AppRoute } from '../../const/enums';
+import TListElement from '../../types/list-element';
+import Film from '../../types/film';
 
 type FilmCardProps = TListElement<Film> & {
   handleMouseOver: (movie: Film) => void
 }
 
-const FilmCardComponent = ({value: movie, handleMouseOver}: FilmCardProps) => {
+const FilmCard = ({ value: movie, handleMouseOver }: FilmCardProps) => {
   const mouseOverHandler = (evt: React.MouseEvent<HTMLElement>) => handleMouseOver(movie);
   return (
     <article className="small-film-card catalog__films-card">

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../const/enums';
 
 type LogoProps = {
-  isLight?: boolean
+  isLight?: boolean;
 }
 
 const LogoElement = ({isLight = false}: LogoProps) => (

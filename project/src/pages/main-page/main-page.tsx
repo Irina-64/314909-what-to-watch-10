@@ -6,7 +6,7 @@ import FilmCardsListComponent from '../../components/film-list/film-list';
 import FooterElement from '../../components/common/footer/footer';
 import ShowMoreButton from '../../components/show-more/show-more';
 
-const MainPage = ({ promo, movies, genres, myMovies }: MainProps) => (
+const MainPage = ({ promo, movies, genres, myMovies, randomMovie }: MainProps) => (
   <Fragment>
     <FilmPromoComponent promo={promo} myMovies={myMovies} />
     <div className="page-content">

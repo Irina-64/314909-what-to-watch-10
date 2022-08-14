@@ -1,7 +1,7 @@
 import Film from '../types/film';
 
 const mockFilmPromo: Film = {
-  'id': 1,
+  'id': '1',
   'name': 'The Grand Budapest Hotel',
   'posterImage': 'img/the-grand-budapest-hotel-poster.jpg',
   'previewImage': 'img/the-grand-budapest-hotel.jpg',

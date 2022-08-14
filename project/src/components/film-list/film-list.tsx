@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import TList from '../../../types/list';
-import Film from '../../../types/film';
-import FilmCard from '../../film-card/film-card';
+import TList from '../../types/list';
+import Film from '../../types/film';
+import FilmCard from '../film-card/film-card';
 
 type ActiveFilmState = {
   activeMovie: Film | null

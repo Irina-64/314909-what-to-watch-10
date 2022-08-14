@@ -6,7 +6,7 @@ type MovieButtonsProps = {
   myMoviesCount: number
 }
 
-const PlayButtonsElement = ({id, myMoviesCount, hasAddReview = false}: MovieButtonsProps) => {
+const PlayButtonsElement = ({ id, myMoviesCount, hasAddReview = false }: MovieButtonsProps) => {
   const navigate = useNavigate();
 
   const addReviewButton = hasAddReview
@@ -30,6 +30,6 @@ const PlayButtonsElement = ({id, myMoviesCount, hasAddReview = false}: MovieButt
       {addReviewButton}
     </div>
   );
-}
+};
 
 export default PlayButtonsElement;
