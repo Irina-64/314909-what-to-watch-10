@@ -8,7 +8,7 @@ import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
 import MoviePage from '../../pages/movie-page/movie-page';
 import NotFound from '../../pages/not-found/not-found';
-import PrivateRoute from '../private-route/private-route';
+import PrivateRoute from '../../components/common/private-route/private-route';
 import { MainProps } from '../../types/props';
 
 const goToMainPage = <Navigate to={AppRoute.Main} />;

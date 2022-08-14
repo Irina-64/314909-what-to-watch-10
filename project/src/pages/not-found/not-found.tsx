@@ -1,13 +1,22 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import { AppRoute } from '../../const/enums';
+import LogoElement from '../../components/common/logo/logo';
+import FooterElement from '../../components/common/footer/footer';
 
-function NotFound(): JSX.Element {
-  return (
-    <div className="user-page">
-      <p className="film-card__title">Not Found 404</p>
-      <Link className="small-film-card__link" to={AppRoute.Main}>Return to main page</Link>
+const NotFound = () => {
+  <div className="user-page">
+    <header className="page-header user-page__head">
+      <LogoElement />
+      <h1 className="page-title user-page__title">404 Not Found</h1>
+    </header>
+    <div className="sign-in user-page__content">
+      <form action={AppRoute.Main} className="sign-in__form">
+        <div className="sign-in__submit">
+          <button className="sign-in__btn" type="submit">Return to Main Page</button>
+        </div>
+      </form>
     </div>
-  );
-}
+    <FooterElement />
+  </div>;
+};
 
 export default NotFound;

@@ -1,23 +1,23 @@
-import GenreListComponent from '../../components/genres/genre-list/genre-list';
-import MoviePromoComponent from '../../components/movies/movie-promo/movie-promo';
-import MovieCardsListComponent from '../../components/movies/movie-list/movie-list';
-import PageFooter from '../../components/common/page-footer/page-footer';
-import { MainProps } from '../../types/props';
 import { Fragment } from 'react';
+import { MainProps } from '../../types/props';
+import GenreListComponent from '../../components/genres/genre-list/genre-list';
+import FilmPromoComponent from '../../components/movies/movie-promo/promo';
+import FilmCardsListComponent from '../../components/film-list/film-list';
+import FooterElement from '../../components/common/footer/footer';
 import ShowMoreButton from '../../components/show-more/show-more';
 
 const MainPage = ({ promo, movies, genres, myMovies }: MainProps) => (
   <Fragment>
-    <MoviePromoComponent promo={promo} myMovies={myMovies} />
+    <FilmPromoComponent promo={promo} myMovies={myMovies} />
     <div className="page-content">
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <GenreListComponent genres={genres} />
-        <MovieCardsListComponent movies={movies} />
+        <FilmCardsListComponent movies={movies} />
         <ShowMoreButton />
       </section>
-      <PageFooter />
+      <FooterElement />
     </div>
   </Fragment>
 );

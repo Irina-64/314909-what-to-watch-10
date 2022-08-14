@@ -19,6 +19,7 @@ const PLAYER_TIME_STYLE = {
 };
 
 export {
+  RATING_ID_PREFIX,
   MOVIE_CARD_COUNT,
   PLAYER_TIME_STYLE,
   FilmTypeList,

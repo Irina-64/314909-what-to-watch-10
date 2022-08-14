@@ -1,6 +1,6 @@
 import Film from '../types/film';
 
-const promoFilm: Film = {
+const mockFilmPromo: Film = {
   'id': 1,
   'name': 'The Grand Budapest Hotel',
   'posterImage': 'img/the-grand-budapest-hotel-poster.jpg',
@@ -27,4 +27,4 @@ const promoFilm: Film = {
   'isFavorite': false
 };
 
-export default promoFilm;
+export default mockFilmPromo;

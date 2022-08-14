@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import TMovie from '../../../types/movie';
+import Film from '../../../types/film';
 
-const ReviewBreadcrumbsElement = ({id, name}: TMovie) => (
+const ReviewBreadcrumbsElm = ({id, name}: Film) => (
   <nav className="breadcrumbs">
     <ul className="breadcrumbs__list">
       <li className="breadcrumbs__item">
@@ -14,4 +14,4 @@ const ReviewBreadcrumbsElement = ({id, name}: TMovie) => (
   </nav>
 );
 
-export default ReviewBreadcrumbsElement;
+export default ReviewBreadcrumbsElm;

@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const/enums';
 
 type MovieButtonsProps = {
   hasAddReview?: boolean;
