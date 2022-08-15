@@ -1,6 +1,6 @@
 type Review = {
-  review_id: number;
-  movie_name: string;
+  reviewId: string;
+  movieName: string;
   text: string;
   islike: boolean;
 };

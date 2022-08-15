@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute, HeaderStyle, PosterSize } from '../../const/enums';
-import FilmCardsListComponent from '../../components/film-list/film-list';
+import FilmCardsList from '../../components/film-list/film-list';
 import LogoElement from '../../components/common/logo/logo';
 import FooterElement from '../../components/common/footer/footer';
 import UserBlockElement from '../../components/common/user-block/user-block';
@@ -52,7 +52,7 @@ const MoviePage = ({ myMovies }: MainProps) => {
         </div>
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <FilmPosterElement {...currentMovie} size={PosterSize.isBig} />
+            <FilmPosterElement {...currentMovie} size={PosterSize.Big} />
             <FilmTabs movie={currentMovie} />
           </div>
         </div>
@@ -63,8 +63,7 @@ const MoviePage = ({ myMovies }: MainProps) => {
           ? (
             <section className="catalog catalog--like-this">
               <h2 className="catalog__title">More like this</h2>
-
-              <FilmCardsListComponent movies={mockFilmList.filter((movie) => movie.genre === currentMovie.genre)} count={MOVIE_CARD_MAIN_COUNT} />
+              <FilmCardsList movies={mockFilmList.filter((movie) => movie.genre === currentMovie.genre)} count={MOVIE_CARD_MAIN_COUNT} />
             </section>
           )
           : null}

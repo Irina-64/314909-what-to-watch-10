@@ -19,6 +19,7 @@ type FilmCardProps = {
   isMuted?: boolean;
   isPreview?: boolean;
   handleMouseEvent: (id: number | null) => void;
+  handleMouseOver: (movie: Film) => void;
 };
 
 export type {

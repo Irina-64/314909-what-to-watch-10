@@ -1,5 +1,5 @@
 import TComment from '../../../../../types/comment';
-import { humanizeCommentDate } from '../../../../../utils/utils';
+import { humanizeCommentDate } from '../../../../../utilites/utilites';
 
 const Review = (review: TComment) => {
   const commentDate = humanizeCommentDate(review.date);
@@ -17,6 +17,7 @@ const Review = (review: TComment) => {
 
       <div className="review__rating">{review.rating}</div>
     </div>
-  );};
+  );
+};
 
 export default Review;

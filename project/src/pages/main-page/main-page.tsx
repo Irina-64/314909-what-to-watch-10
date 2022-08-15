@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { MainProps } from '../../types/props';
 import GenreListComponent from '../../components/genres/genre-list/genre-list';
 import FilmPromoComponent from '../../components/movies/movie-promo/promo';
-import FilmCardsListComponent from '../../components/film-list/film-list';
+import FilmCardsList from '../../components/film-list/film-list';
 import FooterElement from '../../components/common/footer/footer';
 import ShowMoreButton from '../../components/show-more/show-more';
 
@@ -14,7 +14,7 @@ const MainPage = ({ promo, movies, genres, myMovies, randomMovie }: MainProps) =
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <GenreListComponent genres={genres} />
-        <FilmCardsListComponent movies={movies} />
+        <FilmCardsList movies={movies} count={4} />
         <ShowMoreButton />
       </section>
       <FooterElement />

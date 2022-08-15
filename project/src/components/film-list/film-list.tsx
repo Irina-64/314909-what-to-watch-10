@@ -1,24 +1,22 @@
-import { useState } from 'react';
-import TList from '../../types/list';
+import { useCallback, useState } from 'react';
 import Film from '../../types/film';
 import FilmCard from '../film-card/film-card';
 
-type ActiveFilmState = {
-  activeMovie: Film | null
-};
+const FilmCardsList = ({movies, count}: {movies: readonly Film[], count: number}) => {
+  const [activeMovieId, setActiveMovieId] = useState<null | number>(null);
 
-const FilmCardsListComponent = ({ movies }: TList<Film>) => {
-  const [activeMovie, setActiveMovie] = useState<ActiveFilmState>({ activeMovie: null });
-
-  const handleMouseOver = (movie: Film) => setActiveMovie({ ...activeMovie, activeMovie: movie });
+  const handleMouseEvent = useCallback(
+    (id: number | null) => id === activeMovieId ? null : setActiveMovieId(id),
+    [activeMovieId],
+  );
 
   return (
     <div className="catalog__films-list">
-      {movies.map(
+      {movies.slice(0, count).map(
         (movie: Film) => <FilmCard key={`${movie.id}`} value={movie} handleMouseOver={handleMouseOver} />
       )}
     </div>
   );
 };
 
-export default FilmCardsListComponent;
+export default FilmCardsList;

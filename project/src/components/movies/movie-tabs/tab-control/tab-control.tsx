@@ -1,15 +1,15 @@
 import { Link, } from 'react-router-dom';
-import { MovieNavigation } from '../../../../const/enums';
+import { FilmNavigation } from '../../../../const/enums';
 
 const NAV_ITEM_ACTIVE_CLASS = 'film-nav__item--active';
 
-type MovieTabProps = {
-  name: MovieNavigation;
-  activeTab: MovieNavigation;
-  handleTabEvent: (activeTab: MovieNavigation) => void;
+type FilmTabProps = {
+  name: FilmNavigation;
+  activeTab: FilmNavigation;
+  handleTabEvent: (activeTab: FilmNavigation) => void;
 }
 
-const FilmTabNavigation = ({ name, activeTab, handleTabEvent }: MovieTabProps) => {
+const FilmTabNavigation = ({ name, activeTab, handleTabEvent }: FilmTabProps) => {
   const onTabClick = (evt: { preventDefault: () => void; }) => {
     evt.preventDefault();
     handleTabEvent(name);
