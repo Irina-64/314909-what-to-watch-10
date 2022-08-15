@@ -38,10 +38,10 @@ export enum RatingMinNumber {
 
 export enum HeaderStyle {
   UserPage = 'user-page__head',
-  MovieCard = 'film-card__head',
+  FilmCard = 'film-card__head',
 }
 
-export enum MovieNavigation {
+export enum FilmNavigation {
   Overview = 'Overview',
   Details = 'Details',
   Reviews = 'Reviews',

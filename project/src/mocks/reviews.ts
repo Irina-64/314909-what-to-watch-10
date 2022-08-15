@@ -1,8 +1,7 @@
 import Review from '../types/review';
 
-const reviewList: Review[] = [
+const REVIEW_LIST: Review[] = [
   {
-
     reviewId: '1',
     movieName: 'The Shawshank Redemption',
     text: 'very interesting story',
@@ -16,4 +15,4 @@ const reviewList: Review[] = [
   },
 ];
 
-export default reviewList;
+export default REVIEW_LIST;
