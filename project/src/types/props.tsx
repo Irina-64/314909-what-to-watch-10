@@ -6,14 +6,23 @@ type MainProps = {
   movies: readonly Film[];
   genres: readonly string[];
   myMovies: Film[];
-  randomMovie: Film
-}
+  randomMovie: Film;
+};
 
 type ReviewProps = {
   handleReviewChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-}
+};
+
+type FilmCardProps = {
+  movie: Film;
+  activeMovieId: number | null;
+  isMuted?: boolean;
+  isPreview?: boolean;
+  handleMouseEvent: (id: number | null) => void;
+};
 
 export type {
   MainProps,
-  ReviewProps
+  ReviewProps,
+  FilmCardProps
 };
