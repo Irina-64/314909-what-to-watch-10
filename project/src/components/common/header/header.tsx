@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 type Props = {
   children?: JSX.Element;
@@ -9,11 +10,11 @@ function Header({ children, className }: Props): JSX.Element {
   return (
     <header className={`page-header ${className}`}>
       <div className="logo">
-        <a className="logo__link">
+        <Link to="/" className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        </Link>
       </div>
       {children}
       <ul className="user-block">

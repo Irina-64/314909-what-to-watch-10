@@ -1,84 +1,80 @@
-import Header from '../../components/common/header/header';
-import Footer from '../../components/common/footer/footer';
-import { Link } from 'react-router-dom';
-import PlayButton from '../../components/play-button/play-button';
-import FilmCard from '../../components/film-card/film-card';
+import { Navigate, useParams } from 'react-router-dom';
+import { AppRoute } from '../../const/enums';
+import FilmCardsListComponent from '../../components/film-list/film-list';
+import LogoElement from '../../components/common/logo/logo';
+import FooterElement from '../../components/common/footer/footer';
+import UserBlockElement from '../../components/common/user-block/user-block';
+import mockFilmList from '../../mocks/films';
+import { MainProps } from '../../types/props';
+import FilmCardBackground from '../../components/movies/images/film-background/film-card-backgr';
+import FilmPosterElement from '../../components/movies/images/film-poster/film-poster';
+import PlayButtonsElement from '../../components/play-button/play-button';
+import WTWElement from '../../components/common/wtw/wtw';
 
-function MoviePage(): JSX.Element {
+const MoviePage = ({ myMovies }: MainProps) => {
+  const { id } = useParams();
+
+  const currentMovie = mockFilmList.find((mov) => mov.id === id);
+  const similarMovies = mockFilmList.slice(0, 4);
+
+  if (!currentMovie) {
+    return <Navigate to={AppRoute.NotFound} />;
+  }
   return (
-    <>
+    <div>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-          </div>
+          <FilmCardBackground {...currentMovie} />
+          <WTWElement />
 
-          <h1 className="visually-hidden">WTW</h1>
-          <Header className={'film-card__head'} />
+          <header className="page-header film-card__head">
+            <LogoElement />
+            <UserBlockElement />
+          </header>
+
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{currentMovie.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{currentMovie.genre}</span>
+                <span className="film-card__year">{currentMovie.released}</span>
               </p>
-              <div className="film-card__buttons">
-                <PlayButton />
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
-                <Link to="review" className="btn film-card__button">Add review</Link>
-              </div>
+              <PlayButtonsElement id={currentMovie.id} myMoviesCount={myMovies.length} hasAddReview />
             </div>
           </div>
         </div>
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
-                height="327"
-              />
-            </div>
+            <FilmPosterElement {...currentMovie} isBig />
 
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
+                    <a href="#overview" className="film-nav__link">Overview</a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
+                    <a href="#details" className="film-nav__link">Details</a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
+                    <a href="#reviews" className="film-nav__link">Reviews</a>
                   </li>
                 </ul>
               </nav>
+
               <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
+                <div className="film-rating__score">{currentMovie.rating}</div>
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
                   <span className="film-rating__count">240 ratings</span>
                 </p>
               </div>
+
               <div className="film-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge
-                  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend and protege.
-                </p>
-                <p>Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying
-                  the
-                  sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies mysteriously,
-                  Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.
-                </p>
-                <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-                <p className="film-card__starring">
-                  <strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong>
-                </p>
+                <p>{currentMovie.description}</p>
+                <p className="film-card__director"><strong>Director: {currentMovie.director}</strong></p>
+                <p className="film-card__starring"><strong>Starring: {currentMovie.starring} and others</strong></p>
               </div>
             </div>
           </div>
@@ -87,17 +83,12 @@ function MoviePage(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-          </div>
+          <FilmCardsListComponent movies={similarMovies} />
         </section>
-        <Footer />
+        <FooterElement />
       </div>
-    </>
+    </div>
   );
-}
+};
 
 export default MoviePage;
