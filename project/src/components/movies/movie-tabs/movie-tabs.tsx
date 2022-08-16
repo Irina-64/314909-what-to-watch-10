@@ -26,7 +26,6 @@ const FilmTabs = ({ movie }: { movie: Film }) => {
     }
   };
 
-
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
