@@ -1,46 +1,44 @@
+import { HeaderStyle } from '../../../const/enums';
 import { MainProps } from '../../../types/props';
+import HeaderElement from '../../common/header-element/header-element';
 import LogoElement from '../../common/logo/logo';
-import UserBlockElement from '../../common/user-block/user-block';
+import UserBlock from '../../common/user-block/user-block';
 import WTWElement from '../../common/wtw/wtw';
 import FilmCardBackground from '../images/film-background/film-card-backgr';
 import FilmPosterElement from '../images/film-poster/film-poster';
-import PlayButtonsElement from '../../play-button/play-button';
+import AddReviewButton from '../movie-buttons/add-review-button/add-review-button';
+import FilmCardButtons from '../movie-buttons/movie-buttons';
+import MyListAddButton from '../movie-buttons/mylist-add-button/mylist-add-button';
+import PlayMovieButton from '../movie-buttons/play-movie-button/play-movie-button';
+import FilmCardDescription from '../card-description/card-description';
 
 type FilmPromoProps = Pick<MainProps, 'promo' | 'myMovies'>
 
-const FilmPromoComponent = ({ promo, myMovies }: FilmPromoProps) => {
-  const { name, genre, released } = promo;
+const FilmPromoComponent = ({ promo, myMovies }: FilmPromoProps) => (
+  <section className="film-card">
+    <FilmCardBackground movie={promo} />
 
-  return (
-    <section className="film-card">
-      <FilmCardBackground {...promo} />
+    <WTWElement />
 
-      <WTWElement />
+    <HeaderElement style={HeaderStyle.FilmCard}>
+      <LogoElement />
+      <UserBlock />
+    </HeaderElement>
 
-      <header className="page-header film-card__head">
-        <LogoElement />
-        <UserBlockElement />
-      </header>
+    <div className="film-card__wrap">
+      <div className="film-card__info">
 
-      <div className="film-card__wrap">
-        <div className="film-card__info">
-
-          <FilmPosterElement {...promo} />
-
-          <div className="film-card__desc">
-            <h2 className="film-card__title">{name}</h2>
-            <p className="film-card__meta">
-              <span className="film-card__genre">{genre}</span>
-              <span className="film-card__year">{released}</span>
-            </p>
-
-            <PlayButtonsElement id={promo.id} myMoviesCount={myMovies.length} />
-
-          </div>
-        </div>
+        <FilmPosterElement {...promo} />
+        <FilmCardDescription movie={promo}>
+          <FilmCardButtons>
+            <PlayMovieButton {...promo} />
+            <MyListAddButton count={myMovies.length} />
+            <AddReviewButton {...promo} />
+          </FilmCardButtons>
+        </FilmCardDescription>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default FilmPromoComponent;

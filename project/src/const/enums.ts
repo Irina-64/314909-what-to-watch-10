@@ -1,13 +1,14 @@
 export enum AppRoute {
-  Main = '/',
-  SignIn = '/sign-in',
-  MyList = '/mylist',
-  Films = '/films',
   FilmId = ':id',
-  AddReview = 'review',
+  AddReview = 'films/:id/review',
+  Main = '/',
+  SignIn = '/sign-in/',
+  Films = '/films/',
   Film = '/films/:id',
-  Player = '/player/:id',
-  NotFound = '/*'
+  Player = 'player',
+  FilmPlayer = '/player/:id',
+  MyList = '/mylist',
+  NotFound = '*',
 }
 
 export enum AuthorizationStatus {
@@ -18,7 +19,7 @@ export enum AuthorizationStatus {
 
 export enum PosterSize {
   Big = 'big',
-  Small = 'small'
+  Small = 'small',
 }
 
 export enum RatingName {
@@ -29,7 +30,7 @@ export enum RatingName {
   Awesome = 'Awesome',
 }
 
-export enum RatingMinNumber {
+export enum RatingValue {
   Normal = 3,
   Good = 5,
   VeryGood = 8,

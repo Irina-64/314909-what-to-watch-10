@@ -32,7 +32,7 @@ const MoviePage = ({ myMovies }: MainProps) => {
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <FilmCardBackground {...currentMovie} />
+          <FilmCardBackground movie={currentMovie} />
           <WTWElement />
 
           <HeaderElement style={HeaderStyle.FilmCard}>
