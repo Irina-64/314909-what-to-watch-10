@@ -13,6 +13,8 @@ const FilmTypeList = [
 const Rating = ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'] as const;
 
 const MOVIE_CARD_COUNT = 15;
+const MOVIE_CARD_MAIN_COUNT = 8;
+const MOVIE_CARD_SIMILAR_COUNT = 4;
 
 const RATING_ID_PREFIX = 'star-';
 
@@ -23,6 +25,8 @@ const PLAYER_TIME_STYLE = {
 export {
   RATING_ID_PREFIX,
   MOVIE_CARD_COUNT,
+  MOVIE_CARD_MAIN_COUNT,
+  MOVIE_CARD_SIMILAR_COUNT,
   PLAYER_TIME_STYLE,
   FilmTypeList,
   Rating
