@@ -1,50 +1,47 @@
 
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const/enums';
-import { MainProps } from '../../types/props';
-import MainPage from '../../pages/main-page/main-page';
-import SignIn from '../../pages/sign-in/sign-in';
-import MyList from '../../pages/my-list/my-list';
 import AddReview from '../../pages/add-review/add-review';
-import Player from '../../pages/player/player';
+import SignIn from '../../pages/sign-in/sign-in';
+import MainPage from '../../pages/main-page/main-page';
+import MoviePlayer from '../../pages/movie-player/movie-player';
 import MoviePage from '../../pages/movie-page/movie-page';
-import NotFound from '../../pages/not-found/not-found';
-import PrivateRoute from '../../components/common/private-route/private-route';
+import MyList from '../../pages/my-list/my-list';
+import NotFoundPage from '../../pages/not-found/not-found';
+import PrivateRoute from '../common/private-route/private-route';
 
 const goToMainPage = <Navigate to={AppRoute.Main} />;
 
-function App(MainPageProps: MainProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main}>
-          <Route index element={<MainPage {...MainPageProps} />} />
+          <Route index element={<MainPage />} />
           <Route path={AppRoute.SignIn} element={<SignIn />} />
-
           <Route path={AppRoute.Player}>
             <Route index element={goToMainPage} />
-            <Route path={AppRoute.Player} element={<Player />} />
+            <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
           </Route>
-          <Route path={AppRoute.Films}>
+          <Route path={AppRoute.Movies}>
             <Route index element={goToMainPage} />
           </Route>
-          <Route path={AppRoute.Film}>
-            <Route index element={<MoviePage {...MainPageProps} />} />
+          <Route path={AppRoute.Movie}>
+            <Route index element={<MoviePage />} />
           </Route>
           <Route path={AppRoute.AddReview}>
             <Route index element={<AddReview />} />
           </Route>
-
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <MyList {...MainPageProps.myMovies} />
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth} >
+                <MyList />
               </PrivateRoute>
             }
           />
         </Route>
-        <Route path={AppRoute.NotFound} element={<NotFound />} />
+        <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
