@@ -1,6 +1,6 @@
 import Film from '../types/film';
 
-const mockFilmList: readonly Film[] = [
+const mockFilmList: Film[] = [
   {
     id: '1',
     name: 'The Shawshank Redemption',
