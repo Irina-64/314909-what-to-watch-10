@@ -6,3 +6,4 @@ export const changeGenre = createAction(Action.ChangeGenre, (genre) => ({
 }));
 
 export const resetGenre = createAction(Action.ResetGenre);
+

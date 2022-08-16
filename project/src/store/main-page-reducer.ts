@@ -22,3 +22,4 @@ const mainPageReducer = createReducer(initialState, (builder) => {
 });
 
 export default mainPageReducer;
+
