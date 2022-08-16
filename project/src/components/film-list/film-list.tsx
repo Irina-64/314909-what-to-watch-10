@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import Film from '../../types/film';
-import FilmCardComponent from '../film-card/film-card';
+import FilmCard from '../film-card/film-card';
 
 const FilmCardsList = ({ movies, count }: { movies: readonly Film[], count: number }) => {
   const [activeMovieId, setActiveMovieId] = useState<null | number>(null);
@@ -13,7 +13,7 @@ const FilmCardsList = ({ movies, count }: { movies: readonly Film[], count: numb
   return (
     <div className="catalog__films-list">
       {movies.slice(0, count).map(
-        (movie: Film) => <FilmCardComponent key={`${movie.id}-${movie.name}`} movie={movie} playerId={activeMovieId} handleMouseEvent={handleMouseEvent} />
+        (movie: Film) => <FilmCard key={`${movie.id}-${movie.name}`} movie={movie} playerId={activeMovieId} handleMouseEvent={handleMouseEvent} />
       )}
     </div>
   );

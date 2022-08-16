@@ -28,15 +28,20 @@ const VideoPlayer = ({ movie, isPlaying, isMuted = false, isPreview = false }: F
       return;
     }
 
-    if (isPlaying && !isLoading && !isPreview) {
+    if (isPlaying) {
       videoRef.current.play();
       return;
     }
 
-    videoRef.current.pause();
+    videoRef.current.load();
   }, [isLoading, isMuted, isPlaying, isPreview, movie]);
 
-  return <video src={isPreview ? movie.previewVideoLink : movie.videoLink} ref={videoRef} className="player__video" poster={movie.previewImage} />;
+  return (
+    <video
+      src={isPreview ? movie.previewVideoLink : movie.videoLink}
+      ref={videoRef} className="player__video" poster={movie.previewImage}
+    />
+  );
 };
 
 export default VideoPlayer;
