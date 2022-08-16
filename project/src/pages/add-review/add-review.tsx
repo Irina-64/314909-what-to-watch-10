@@ -5,7 +5,7 @@ import LogoElement from '../../components/common/logo/logo';
 import UserBlockElement from '../../components/common/user-block/user-block';
 import { AppRoute, PosterSize } from '../../const/enums';
 import mockFilmList from '../../mocks/films';
-import MovieBackgroundElement from '../../components/movies/images/film-background/film-card-backgr';
+import FilmBackgroundElement from '../../components/movies/images/film-background/film-card-backgr';
 import FilmPosterElement from '../../components/movies/images/film-poster/film-poster';
 import ReviewBreadcrumbsElm from '../../components/review/review-breadcrumbs/review-breadcrumbs';
 import WTWElement from '../../components/common/wtw/wtw';
@@ -29,7 +29,7 @@ const AddReview = () => {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <MovieBackgroundElement {...currentMovie} />
+        <FilmBackgroundElement movie={currentMovie} />
         <WTWElement />
         <header className="page-header">
           <LogoElement />

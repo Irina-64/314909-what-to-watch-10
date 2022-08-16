@@ -1,4 +1,4 @@
-import { Link, } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FilmNavigation } from '../../../../const/enums';
 
 const NAV_ITEM_ACTIVE_CLASS = 'film-nav__item--active';

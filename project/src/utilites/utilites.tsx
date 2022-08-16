@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { RatingName, RatingMinNumber } from '../const/enums';
+import { RatingName, RatingValue } from '../const/enums';
 
 const goToPage = (page: string) => <Navigate to={page} />;
 
@@ -26,15 +26,15 @@ const humanizeCommentDate = (date: string) => dayjs(date).format('MMMM D, YYYY')
 
 const getRatingName = (rating: number) => {
   switch (true) {
-    case rating < RatingMinNumber.Normal:
+    case rating < RatingValue.Normal:
       return RatingName.Bad;
-    case rating < RatingMinNumber.Good:
+    case rating < RatingValue.Good:
       return RatingName.Normal;
-    case rating < RatingMinNumber.VeryGood:
+    case rating < RatingValue.VeryGood:
       return RatingName.Good;
-    case rating < RatingMinNumber.Awesome:
+    case rating < RatingValue.Awesome:
       return RatingName.VeryGood;
-    case rating === RatingMinNumber.Awesome:
+    case rating === RatingValue.Awesome:
       return RatingName.Awesome;
   }
 };

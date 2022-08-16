@@ -1,8 +1,8 @@
 import Film from '../../../../types/film';
 
-const FilmCardBackground = ({ name, backgroundImage }: Film) => (
+const FilmCardBackground = ({ movie }: { movie: Film }) => (
   <div className="film-card__bg">
-    <img src={backgroundImage} alt={name} />
+    <img src={movie.backgroundImage} alt={movie.name} />
   </div>
 );
 
