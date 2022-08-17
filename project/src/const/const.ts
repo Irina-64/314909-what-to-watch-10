@@ -1,33 +1,8 @@
-const FilmTypeList = [
-  'Comedies',
-  'Crime',
-  'Documentary',
-  'Dramas',
-  'Horror',
-  'Kids & Family',
-  'Romance',
-  'Sci-Fi',
-  'Thrillers',
-] as const;
+export const RATING_ID_PREFIX = 'star-';
 
-const Rating = ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'] as const;
+export const MOVIE_CARD_MAIN_COUNT = 8;
+export const MOVIE_CARD_SIMILAR_COUNT = 4;
 
-const MOVIE_CARD_COUNT = 15;
-const MOVIE_CARD_MAIN_COUNT = 8;
-const MOVIE_CARD_SIMILAR_COUNT = 4;
+export const MOVIE_NAVIGATION_ACTIVE_CLASS = 'film-nav__item--active';
 
-const RATING_ID_PREFIX = 'star-';
-
-const PLAYER_TIME_STYLE = {
-  left: '30%'
-};
-
-export {
-  RATING_ID_PREFIX,
-  MOVIE_CARD_COUNT,
-  MOVIE_CARD_MAIN_COUNT,
-  MOVIE_CARD_SIMILAR_COUNT,
-  PLAYER_TIME_STYLE,
-  FilmTypeList,
-  Rating
-};
+export const Rating = ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'] as const;

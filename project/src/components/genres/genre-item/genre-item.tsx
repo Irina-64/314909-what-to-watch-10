@@ -1,10 +1,20 @@
-import { Link } from 'react-router-dom';
-import TListElement from '../../../types/list-element';
+import React from 'react';
+import { GenreName } from '../../../const/enums';
+import { GenreProps } from '../../../types/props';
 
-const GenreItem = ({ value: genre }: TListElement) => (
-  <li className="catalog__genres-item catalog__genres-item--active">
-    <Link to={`#${genre}`} className="catalog__genres-link">{genre}</Link>
-  </li>
-);
+const GENRE_NAVIGATION_ACTIVE_CLASS = 'catalog__genres-item--active';
+
+const GenreItem = ({ genre, selectedGenre, handleGenreClick }: GenreProps) => {
+  const onGenreClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleGenreClick(genre);
+  };
+
+  return (
+    <li className={`catalog__genres-item ${selectedGenre === genre ? GENRE_NAVIGATION_ACTIVE_CLASS : ''}`}>
+      <a href={`/${genre}`} className="catalog__genres-link" onClick={onGenreClick}>{GenreName[genre]}</a>
+    </li>
+  );
+};
 
 export default GenreItem;

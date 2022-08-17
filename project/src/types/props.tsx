@@ -1,29 +1,24 @@
-import { ChangeEvent } from 'react';
+import { Genre } from '../const/enums';
 import Film from './film';
 
-type MainProps = {
-  promo: Film;
-  movies: readonly Film[];
-  genres: readonly string[];
-  myMovies: Film[];
-  randomMovie: Film;
-};
-
 type ReviewProps = {
-  handleReviewChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-};
+  handleReviewChange: ({ target, value }: { target: string, value: string | number }) => void;
+}
 
 type FilmCardProps = {
   movie: Film;
-  playerId: number;
-  isMuted?: boolean;
-  isPreview?: boolean;
-  renderPlayer: (movie: Film, playerIndex: number, isPreview?: boolean, isMuted?: boolean) => JSX.Element;
+  activeMovieId: number | null;
   handleMouseEvent: (id: number | null) => void;
 };
 
+type GenreProps = {
+  genre: Genre;
+  selectedGenre: Genre;
+  handleGenreClick: (genre: Genre) => void;
+};
+
 export type {
-  MainProps,
   ReviewProps,
-  FilmCardProps
+  FilmCardProps,
+  GenreProps,
 };
