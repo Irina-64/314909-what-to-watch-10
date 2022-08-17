@@ -2,8 +2,8 @@ import { Genre } from '../const/enums';
 import Film from './film';
 
 type ReviewProps = {
-  handleReviewChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-};
+  handleReviewChange: ({ target, value }: { target: string, value: string | number }) => void;
+}
 
 type FilmCardProps = {
   movie: Film;

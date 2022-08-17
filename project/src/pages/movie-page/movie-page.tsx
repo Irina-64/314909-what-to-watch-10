@@ -4,8 +4,6 @@ import FilmCardsList from '../../components/film-list/film-list';
 import LogoElement from '../../components/common/logo/logo';
 import FooterElement from '../../components/common/footer/footer';
 import UserBlockElement from '../../components/common/user-block/user-block';
-import mockFilmList from '../../mocks/films';
-import { MainProps } from '../../types/props';
 import FilmCardBackground from '../../components/movies/images/film-background/film-card-backgr';
 import FilmPosterElement from '../../components/movies/images/film-poster/film-poster';
 import FilmCardButtons from '../../components/movies/movie-buttons/movie-buttons';
@@ -16,18 +14,23 @@ import PlayFilmCardButton from '../../components/movies/movie-buttons/play-movie
 import MyListAddButton from '../../components/movies/movie-buttons/mylist-add-button/mylist-add-button';
 import FilmCardDescription from '../../components/movies/card-description/card-description';
 import FilmTabs from '../../components/movies/movie-tabs/movie-tabs';
-import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
+import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
+import { filterFavoriteMovies, findMovieById } from '../../utilites/utilites';
+import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
+import { getMovies } from '../../utilites/selectors/selectors';
 
-const MoviePage = ({ myMovies }: MainProps) => {
+const MoviePage = () => {
+  const movies = useAppSelector(getMovies);
   const { id } = useParams();
-
-  const currentMovie = mockFilmList.find((mov) => mov.id === id);
+  const myMovies = filterFavoriteMovies(movies);
+  const currentMovie = findMovieById(movies, id);
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  const similarMovies = mockFilmList.filter((movie) => movie.genre === currentMovie.genre);
+  const similarMovies = movies.filter((movie) => movie.genre === currentMovie.genre);
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -50,6 +53,7 @@ const MoviePage = ({ myMovies }: MainProps) => {
             </FilmCardDescription>
           </div>
         </div>
+
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <FilmPosterElement {...currentMovie} size={PosterSize.Big} />
@@ -63,7 +67,7 @@ const MoviePage = ({ myMovies }: MainProps) => {
           ? (
             <section className="catalog catalog--like-this">
               <h2 className="catalog__title">More like this</h2>
-              <FilmCardsList movies={mockFilmList.filter((movie) => movie.genre === currentMovie.genre)} count={MOVIE_CARD_MAIN_COUNT} />
+              <FilmCardsList movies={similarMovies} countPerStep={MOVIE_CARD_SIMILAR_COUNT} />
             </section>
           )
           : null}
