@@ -4,7 +4,7 @@ import { AppRoute, AuthorizationStatus } from '../../const/enums';
 import AddReview from '../../pages/add-review/add-review';
 import SignIn from '../../pages/sign-in/sign-in';
 import MainPage from '../../pages/main-page/main-page';
-import MoviePlayer from '../../pages/movie-player/movie-player';
+import MoviePlayerPage from '../../pages/movie-player/movie-player';
 import MoviePage from '../../pages/movie-page/movie-page';
 import MyList from '../../pages/my-list/my-list';
 import NotFoundPage from '../../pages/not-found/not-found';
@@ -21,12 +21,12 @@ function App(): JSX.Element {
           <Route path={AppRoute.SignIn} element={<SignIn />} />
           <Route path={AppRoute.Player}>
             <Route index element={goToMainPage} />
-            <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
+            <Route path={AppRoute.MoviePlayerPage} element={<MoviePlayerPage />} />
           </Route>
-          <Route path={AppRoute.Movies}>
+          <Route path={AppRoute.Films}>
             <Route index element={goToMainPage} />
           </Route>
-          <Route path={AppRoute.Movie}>
+          <Route path={AppRoute.Film}>
             <Route index element={<MoviePage />} />
           </Route>
           <Route path={AppRoute.AddReview}>

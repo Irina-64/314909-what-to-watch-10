@@ -1,25 +1,36 @@
 import FilmCardsList from '../../components/film-list/film-list';
 import LogoElement from '../../components/common/logo/logo';
 import FooterElement from '../../components/common/footer/footer';
-import UserBlockElement from '../../components/common/user-block/user-block';
-import Film from '../../types/film';
-import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
+import UserBlock from '../../components/common/user-block/user-block';
+import HeaderElement from '../../components/common/header-element/header-element';
+import { HeaderStyle } from '../../const/enums';
+import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
+import { getMovies } from '../../utilites/selectors/selectors';
+import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
+import { filterFavoriteMovies } from '../../utilites/utilites';
 
-function MyList(myMovies: Film[]): JSX.Element {
+const MyListPage = () => {
+  const movies = useAppSelector(getMovies);
+  const myMovies = filterFavoriteMovies(movies);
+
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
+      <HeaderElement style={HeaderStyle.UserPage}>
         <LogoElement />
         <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{myMovies.length}</span></h1>
-        <UserBlockElement />
-      </header>
+        <UserBlock />
+      </HeaderElement>
+
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmCardsList movies={myMovies} count={MOVIE_CARD_SIMILAR_COUNT}/>
+
+        <FilmCardsList movies={myMovies} countPerStep={MOVIE_CARD_MAIN_COUNT} />
       </section>
+
       <FooterElement />
     </div>
   );
-}
+};
 
-export default MyList;
+
+export default MyListPage;

@@ -6,7 +6,7 @@ export enum AppRoute {
   Films = '/films/',
   Film = '/films/:id',
   Player = 'player',
-  FilmPlayer = '/player/:id',
+  MoviePlayerPage = '/player/:id',
   MyList = '/mylist',
   NotFound = '*',
 }

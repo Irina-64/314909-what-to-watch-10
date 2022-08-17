@@ -1,26 +1,21 @@
-import { ChangeEvent, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import ReviewFormComponent from '../../components/review/review-form/review-form';
 import LogoElement from '../../components/common/logo/logo';
-import UserBlockElement from '../../components/common/user-block/user-block';
+import UserBlock from '../../components/common/user-block/user-block';
 import { AppRoute, PosterSize } from '../../const/enums';
-import mockFilmList from '../../mocks/films';
-import FilmBackgroundElement from '../../components/movies/images/film-background/film-card-backgr';
+import FilmCardBackground from '../../components/movies/images/film-background/film-card-backgr';
 import FilmPosterElement from '../../components/movies/images/film-poster/film-poster';
 import ReviewBreadcrumbsElm from '../../components/review/review-breadcrumbs/review-breadcrumbs';
 import WTWElement from '../../components/common/wtw/wtw';
+import HeaderElement from '../../components/common/header-element/header-element';
+import { findMovieById } from '../../utilites/utilites';
+import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
+import { getMovies } from '../../utilites/selectors/selectors';
 
-type ReviewState = {
-  rating: string;
-  reviewText: string;
-}
 const AddReview = () => {
-  const [review, setReview] = useState<ReviewState>({ rating: '', reviewText: '' });
   const { id } = useParams();
-
-  const currentMovie = mockFilmList.find((film) => film.id === id);
-
-  const handleReviewChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setReview({ ...review, [e.target.name]: e.target.value });
+  const allMovies = useAppSelector(getMovies);
+  const currentMovie = findMovieById(allMovies, id);
 
   if (!currentMovie) {
     return <Navigate to={AppRoute.NotFound} />;
@@ -29,16 +24,16 @@ const AddReview = () => {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <FilmBackgroundElement movie={currentMovie} />
+        <FilmCardBackground movie={currentMovie} />
         <WTWElement />
-        <header className="page-header">
+        <HeaderElement>
           <LogoElement />
           <ReviewBreadcrumbsElm {...currentMovie} />
-          <UserBlockElement />
-        </header>
+          <UserBlock />
+        </HeaderElement>
         <FilmPosterElement {...currentMovie} size={PosterSize.Small} />
       </div>
-      <ReviewFormComponent handleReviewChange={handleReviewChange} />
+      <ReviewFormComponent />
     </section>
   );
 };

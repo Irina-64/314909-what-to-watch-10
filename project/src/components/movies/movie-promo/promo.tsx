@@ -1,5 +1,4 @@
 import { HeaderStyle } from '../../../const/enums';
-import { MainProps } from '../../../types/props';
 import HeaderElement from '../../common/header-element/header-element';
 import LogoElement from '../../common/logo/logo';
 import UserBlock from '../../common/user-block/user-block';
@@ -11,34 +10,40 @@ import FilmCardButtons from '../movie-buttons/movie-buttons';
 import MyListAddButton from '../movie-buttons/mylist-add-button/mylist-add-button';
 import PlayMovieButton from '../movie-buttons/play-movie-button/play-movie-button';
 import FilmCardDescription from '../card-description/card-description';
+import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
+import { getMovies, getPromo } from '../../../utilites/selectors/selectors';
+import { filterFavoriteMovies } from '../../../utilites/utilites';
 
-type FilmPromoProps = Pick<MainProps, 'promo' | 'myMovies'>
+const FilmCardPromo = () => {
+  const promo = useAppSelector(getPromo);
+  const myMovies = filterFavoriteMovies(useAppSelector(getMovies));
 
-const FilmPromoComponent = ({ promo, myMovies }: FilmPromoProps) => (
-  <section className="film-card">
-    <FilmCardBackground movie={promo} />
+  return (
+    <section className="film-card">
+      <FilmCardBackground movie={promo} />
 
-    <WTWElement />
+      <WTWElement />
 
-    <HeaderElement style={HeaderStyle.FilmCard}>
-      <LogoElement />
-      <UserBlock />
-    </HeaderElement>
+      <HeaderElement style={HeaderStyle.FilmCard}>
+        <LogoElement />
+        <UserBlock />
+      </HeaderElement>
 
-    <div className="film-card__wrap">
-      <div className="film-card__info">
+      <div className="film-card__wrap">
+        <div className="film-card__info">
 
-        <FilmPosterElement {...promo} />
-        <FilmCardDescription movie={promo}>
-          <FilmCardButtons>
-            <PlayMovieButton {...promo} />
-            <MyListAddButton count={myMovies.length} />
-            <AddReviewButton {...promo} />
-          </FilmCardButtons>
-        </FilmCardDescription>
+          <FilmPosterElement {...promo} />
+          <FilmCardDescription movie={promo}>
+            <FilmCardButtons>
+              <PlayMovieButton {...promo} />
+              <MyListAddButton count={myMovies.length} />
+              <AddReviewButton {...promo} />
+            </FilmCardButtons>
+          </FilmCardDescription>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
-export default FilmPromoComponent;
+export default FilmCardPromo;
