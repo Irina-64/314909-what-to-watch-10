@@ -1,37 +1,33 @@
 import { useCallback, useState } from 'react';
-import { Genre } from '../../const/enums';
-import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import Film from '../../types/film';
-import { getSelectedGenre } from '../../utilites/selectors/selectors';
 import ShowMoreButton from '../show-more/show-more';
 import FilmCardComponent from '../film-card/film-card';
+import { MOVIE_CARD_MAIN_COUNT, MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
 
-const FilmCardsList = ({ movies, countPerStep, isMain = false }: { movies: Film[], countPerStep: number, isMain?: boolean }) => {
-  const selectedGenre = useAppSelector(getSelectedGenre);
-  const filteredMovies = selectedGenre === Genre.AllGenres ? movies : movies.filter((movie: Film) => movie.genre === selectedGenre);
+const FilmCardsList = ({ movies, isLong = false }: { movies: Film[], isLong?: boolean }) => {
   const [activeMovieId, setActiveMovieId] = useState<null | number>(null);
-  const [renderedMovieCount, setRenderedMovieCount] = useState(countPerStep);
+  const [renderedMovieCount, setRenderedMovieCount] = useState(isLong ? MOVIE_CARD_MAIN_COUNT : MOVIE_CARD_SIMILAR_COUNT);
+
+  const handleShowMoreButtonClick = useCallback(
+    (count: number) => setRenderedMovieCount(() => Math.min(renderedMovieCount + count, movies.length)),
+    [movies.length, renderedMovieCount],
+  );
 
   const handleMouseEvent = useCallback(
     (id: number | null) => id === activeMovieId ? null : setActiveMovieId(id),
     [activeMovieId],
   );
 
-  const handleShowMoreButtonClick = useCallback(
-    (movieCount: number) => setRenderedMovieCount(() => Math.min(renderedMovieCount + movieCount, filteredMovies.length)),
-    [filteredMovies.length, renderedMovieCount],
-  );
-
   return (
     <>
       <div className="catalog__films-list">
-        {filteredMovies.slice(0, renderedMovieCount).map(
+        {movies.slice(0, renderedMovieCount).map(
           (movie: Film) => <FilmCardComponent key={`${movie.id}-${movie.name}`} movie={movie} activeMovieId={activeMovieId} handleMouseEvent={handleMouseEvent} />
         )}
       </div>
-      {(filteredMovies.length <= renderedMovieCount) || !isMain
+      {!isLong || movies.length <= renderedMovieCount
         ? null
-        : <ShowMoreButton totalFilmCount={filteredMovies.length} renderedFilmsCount={renderedMovieCount} handleShowMoreButtonClick={handleShowMoreButtonClick} />}
+        : <ShowMoreButton totalFilmCount={movies.length} renderedFilmsCount={renderedMovieCount} handleShowMoreButtonClick={handleShowMoreButtonClick} />}
     </>
   );
 };

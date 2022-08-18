@@ -6,3 +6,5 @@ export const MOVIE_CARD_SIMILAR_COUNT = 4;
 export const MOVIE_NAVIGATION_ACTIVE_CLASS = 'film-nav__item--active';
 
 export const Rating = ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1'] as const;
+
+export const TIMEOUT_SHOW_ERROR = 2000;

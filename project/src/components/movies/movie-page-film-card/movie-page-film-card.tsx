@@ -2,7 +2,7 @@ import { HeaderStyle, PosterSize } from '../../../const/enums';
 import Film from '../../../types/film';
 import HeaderElement from '../../common/header-element/header-element';
 import LogoElement from '../../common/logo/logo';
-import UserBlockElement from '../../common/user-block/user-block';
+import UserBlock from '../../common/user-block/user-block';
 import WTWElement from '../../common/wtw/wtw';
 import FilmCardButtons from '../../movies/movie-buttons/movie-buttons';
 import FilmCardDescription from '../../movies/card-description/card-description';

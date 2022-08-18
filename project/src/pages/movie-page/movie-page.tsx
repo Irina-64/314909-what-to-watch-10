@@ -4,7 +4,7 @@ import { AppRoute } from '../../const/enums';
 import FilmCardsList from '../../components/film-list/film-list';
 import FooterElement from '../../components/common/footer/footer';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMovies } from '../../utilites/selectors/selectors';
+import { getMovieState } from '../../utilites/selectors/selectors';
 import { checkFilm } from '../../utilites/utilites';
 import Loading from '../loading/loading';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
@@ -13,32 +13,32 @@ import MoviePageFilmCard from '../../components/movies/movie-page-film-card/movi
 
 const MoviePage = () => {
   const { id } = useParams();
-  const {currentMovie, similarMovies} = useAppSelector(getMovieState);
+  const { currentMovie, similarMovies } = useAppSelector(getMovieState);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id && checkMovie(currentMovie.data, id)) {
+    if (id && checkFilm(currentMovie.data, id)) {
       dispatch(fetchCurrentMovieAction(id));
       dispatch(fetchSimilarMoviesAction(id));
     }
-  },[currentMovie, dispatch, id, similarMovies]
+  }, [currentMovie, dispatch, id, similarMovies]
   );
 
   if (!id) {
     return <Navigate to={AppRoute.NotFound} />;
-  };
+  }
 
   if ((!similarMovies.data || !currentMovie.data)) {
     return (<Loading />);
-  };
+  }
 
   return (
     <>
       <MoviePageFilmCard {...currentMovie.data} />
       <div className="page-content">
-      <section className="catalog catalog--like-this">
+        <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieCardsList movies={similarMovies.data}/>
+          <FilmCardsList movies={similarMovies.data} />
         </section>
 
         <FooterElement />

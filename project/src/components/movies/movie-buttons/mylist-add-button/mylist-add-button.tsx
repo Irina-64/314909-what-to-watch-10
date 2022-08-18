@@ -6,7 +6,7 @@ import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector'
 import { fetchFavoritesAction, toggleFavoriteAction } from '../../../../store/main-page/main-page-api-actions';
 import { getAuthStatus, getFavorites } from '../../../../utilites/selectors/selectors';
 import { checkAuth } from '../../../../utilites/utilites';
-import MovieListIcon from '../../images/movie-icons/movie-list-icon/movie-list-icon';
+import FilmListIcon from '../../images/film-icons/film-list-icon/film-list-icon';
 
 const FAVORITE_SINGLE_STEP = 1;
 const MyListAddButton = ({ id }: { id: number }) => {
@@ -51,7 +51,7 @@ const MyListAddButton = ({ id }: { id: number }) => {
 
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={onFavoriteButtonClick}>
-      <MovieListIcon isInList={isInList} />
+      <FilmListIcon isInList={isInList} />
       <svg viewBox="0 0 19 20" width="19" height="20">
         <use xlinkHref="/my-list/"></use>
       </svg>

@@ -6,27 +6,27 @@ import { getMovies, getSelectedGenre } from '../../utilites/selectors/selectors'
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { filterMoviesByGenre } from '../../utilites/utilites';
 import { Genre } from '../../const/enums';
-import ShowMoreButton from '../../components/show-more/show-more';
 
 const MainPage = () => {
   const movies = useAppSelector(getMovies).data;
   const selectedGenre = useAppSelector(getSelectedGenre);
   const filteredMovies = selectedGenre === Genre.AllGenres ? movies : filterMoviesByGenre(movies, selectedGenre);
   return (
-  <>
-    <FilmCardPromo />
-    <div className="page-content">
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <GenreListComponent />
-        {filteredMovies
-            ? <MovieCardsList movies={filteredMovies} isLong />
+    <>
+      <FilmCardPromo />
+      <div className="page-content">
+        <section className="catalog">
+          <h2 className="catalog__title visually-hidden">Catalog</h2>
+          <GenreListComponent />
+          {filteredMovies
+            ? <FilmCardsList movies={filteredMovies} isLong />
             : null}
-        <ShowMoreButton />
-      </section>
-      <FooterElement />
-    </div>
-  </>
-);};
+
+        </section>
+        <FooterElement />
+      </div>
+    </>
+  );
+};
 
 export default MainPage;
