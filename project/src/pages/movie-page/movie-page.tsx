@@ -1,76 +1,46 @@
+import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute, HeaderStyle, PosterSize } from '../../const/enums';
+import { AppRoute } from '../../const/enums';
 import FilmCardsList from '../../components/film-list/film-list';
-import LogoElement from '../../components/common/logo/logo';
 import FooterElement from '../../components/common/footer/footer';
-import UserBlockElement from '../../components/common/user-block/user-block';
-import FilmCardBackground from '../../components/movies/images/film-background/film-card-backgr';
-import FilmPosterElement from '../../components/movies/images/film-poster/film-poster';
-import FilmCardButtons from '../../components/movies/movie-buttons/movie-buttons';
-import WTWElement from '../../components/common/wtw/wtw';
-import HeaderElement from '../../components/common/header-element/header-element';
-import AddReviewButton from '../../components/movies/movie-buttons/add-review-button/add-review-button';
-import PlayFilmCardButton from '../../components/movies/movie-buttons/play-movie-button/play-movie-button';
-import MyListAddButton from '../../components/movies/movie-buttons/mylist-add-button/mylist-add-button';
-import FilmCardDescription from '../../components/movies/card-description/card-description';
-import FilmTabs from '../../components/movies/movie-tabs/movie-tabs';
-import { MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
-import { filterFavoriteMovies, findMovieById } from '../../utilites/utilites';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import { getMovies } from '../../utilites/selectors/selectors';
+import { checkFilm } from '../../utilites/utilites';
+import Loading from '../loading/loading';
+import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
+import { fetchCurrentMovieAction, fetchSimilarMoviesAction } from '../../store/movie-page/movie-page-api-actions';
+import MoviePageFilmCard from '../../components/movies/movie-page-film-card/movie-page-film-card';
 
 const MoviePage = () => {
-  const movies = useAppSelector(getMovies);
   const { id } = useParams();
-  const myMovies = filterFavoriteMovies(movies);
-  const currentMovie = findMovieById(movies, id);
+  const {currentMovie, similarMovies} = useAppSelector(getMovieState);
+  const dispatch = useAppDispatch();
 
-  if (!currentMovie) {
+  useEffect(() => {
+    if (id && checkMovie(currentMovie.data, id)) {
+      dispatch(fetchCurrentMovieAction(id));
+      dispatch(fetchSimilarMoviesAction(id));
+    }
+  },[currentMovie, dispatch, id, similarMovies]
+  );
+
+  if (!id) {
     return <Navigate to={AppRoute.NotFound} />;
-  }
+  };
 
-  const similarMovies = movies.filter((movie) => movie.genre === currentMovie.genre);
+  if ((!similarMovies.data || !currentMovie.data)) {
+    return (<Loading />);
+  };
 
   return (
     <>
-      <section className="film-card film-card--full">
-        <div className="film-card__hero">
-          <FilmCardBackground movie={currentMovie} />
-          <WTWElement />
-
-          <HeaderElement style={HeaderStyle.FilmCard}>
-            <LogoElement />
-            <UserBlockElement />
-          </HeaderElement>
-
-          <div className="film-card__wrap">
-            <FilmCardDescription movie={currentMovie}>
-              <FilmCardButtons>
-                <PlayFilmCardButton {...currentMovie} />
-                <MyListAddButton count={myMovies.length} />
-                <AddReviewButton {...currentMovie} />
-              </FilmCardButtons>
-            </FilmCardDescription>
-          </div>
-        </div>
-
-        <div className="film-card__wrap film-card__translate-top">
-          <div className="film-card__info">
-            <FilmPosterElement {...currentMovie} size={PosterSize.Big} />
-            <FilmTabs movie={currentMovie} />
-          </div>
-        </div>
-      </section >
-
+      <MoviePageFilmCard {...currentMovie.data} />
       <div className="page-content">
-        {similarMovies
-          ? (
-            <section className="catalog catalog--like-this">
-              <h2 className="catalog__title">More like this</h2>
-              <FilmCardsList movies={similarMovies} countPerStep={MOVIE_CARD_SIMILAR_COUNT} />
-            </section>
-          )
-          : null}
+      <section className="catalog catalog--like-this">
+          <h2 className="catalog__title">More like this</h2>
+          <MovieCardsList movies={similarMovies.data}/>
+        </section>
+
         <FooterElement />
       </div >
     </>

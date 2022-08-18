@@ -91,3 +91,26 @@ export enum GenreName {
   Thriller = 'Thrillers',
   Fantasy = 'Fantasy'
 }
+
+export enum APIRoute {
+  Promo = '/promo',
+  Movies = '/films',
+  Favorites = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+  Review = '/comments'
+}
+
+export enum Favorite {
+  SetFavorite = 1,
+  SetNotFavorite = 0
+}
+
+export enum ErrorMessage {
+  ReviewError = 'Please choose rating and type in your review',
+  SimilarError = 'Failed to load similar movies',
+  CurrentError = 'Failed to load movie',
+  PromoError = 'Failed to load promo',
+  FavoritesError = 'Failed to load favorites',
+  AddFavoriteError = 'Couldn`t add to favorites',
+}

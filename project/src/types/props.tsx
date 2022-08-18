@@ -17,8 +17,15 @@ type GenreProps = {
   handleGenreClick: (genre: Genre) => void;
 };
 
+type ShowMoreButtonProps = {
+  totalFilmCount: number;
+  renderedFilmsCount: number;
+  handleShowMoreButtonClick: (count: number) => void;
+};
+
 export type {
   ReviewProps,
   FilmCardProps,
   GenreProps,
+  ShowMoreButtonProps,
 };
