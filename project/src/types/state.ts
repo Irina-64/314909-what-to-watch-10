@@ -1,10 +1,10 @@
 import { Genre } from '../const/enums';
-import {store} from '../store/store';
+import { store } from '../store/index';
 import TReview from './comment';
 import { TData } from './data';
 import Film from './film';
 
-export type AppInitialState = Omit <TData, 'data'>
+export type AppInitialState = Omit<TData, 'data'>
 
 export type MainPageInitialState = {
   movies: TData<Film[]>;
@@ -14,8 +14,8 @@ export type MainPageInitialState = {
 };
 
 export type MovieInitialState = {
-  currentMovie: Omit <TData<Film | null>, 'isDataLoaded'> & {reviews: TReview[]};
-  similarMovies: Omit <TData<Film[]>, 'isDataLoaded'>;
+  currentMovie: Omit<TData<Film | null>, 'isDataLoaded'> & { reviews: TReview[] };
+  similarMovies: Omit<TData<Film[]>, 'isDataLoaded'>;
 };
 
 export type PromoInitialState = TData<Film | null>;

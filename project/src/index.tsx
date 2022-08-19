@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
+import { store } from './store/index';
 import { fetchMoviesAction, fetchPromoAction } from './store/main-page/main-page-api-actions';
 import { checkAuthAction } from './store/user/user-api-actions';
 

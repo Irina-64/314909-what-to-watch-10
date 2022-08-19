@@ -13,7 +13,7 @@ import { getAuthStatus, getIsDataLoaded } from '../../utilites/selectors/selecto
 import { checkAuth } from '../../utilites/utilites';
 import PrivateRoute from '../common/private-route/private-route';
 import HistoryRouter from '../history-route/history-route';
-import { store } from '../../store/store';
+import { store } from '../../store/index';
 import { useEffect } from 'react';
 import { fetchFavoritesAction } from '../../store/main-page/main-page-api-actions';
 import MainPage from '../../pages/main-page/main-page';

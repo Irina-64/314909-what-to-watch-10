@@ -1,4 +1,4 @@
-import { store } from '../store/store';
+import { store } from '../store/index';
 
 type TAppDispatch = typeof store.dispatch;
 

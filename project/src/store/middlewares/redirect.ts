@@ -1,6 +1,6 @@
 import browserHistory from '../../browser-history';
-import {Middleware} from 'redux';
-import { rootReducer } from '../store';
+import { Middleware } from 'redux';
+import { rootReducer } from '../index';
 import { AppAction } from '../../const/enums';
 
 type Reducer = ReturnType<typeof rootReducer>;
