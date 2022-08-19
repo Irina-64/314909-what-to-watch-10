@@ -5,20 +5,20 @@ import { APIRoute, AppRoute, ChangeAction, ErrorMessage } from '../../const/enum
 import AppDispatch from '../../types/app-dispatch';
 import TReview from '../../types/comment';
 import { TReviewState } from '../../types/review-state';
-import {State} from '../../types/state';
+import { State } from '../../types/state';
 import { redirectToRoute } from '../app/app-actions';
 
 
-export const addReviewAction = createAsyncThunk<void, TReviewState & {id: number}, {
+export const addReviewAction = createAsyncThunk<void, TReviewState & { id: number }, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   ChangeAction.AddReview,
-  async ({rating, comment, id}, {dispatch, extra: api}) => {
+  async ({ rating, comment, id }, { dispatch, extra: api }) => {
     try {
-      await api.post<TReview[]>(`${APIRoute.Review}/${id}`, {comment, rating});
-      dispatch(redirectToRoute(`${AppRoute.Movies}${id}`));
+      await api.post<TReview[]>(`${APIRoute.Review}/${id}`, { comment, rating });
+      dispatch(redirectToRoute(`${AppRoute.Films}${id}`));
     } catch {
       toast.warn(ErrorMessage.ReviewError);
     }

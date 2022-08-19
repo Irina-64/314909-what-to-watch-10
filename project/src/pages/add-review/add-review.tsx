@@ -9,7 +9,7 @@ import ReviewBreadcrumbsElm from '../../components/review/review-breadcrumbs/rev
 import WTWElement from '../../components/common/wtw/wtw';
 import HeaderElement from '../../components/common/header-element/header-element';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getMovies } from '../../utilites/selectors/selectors';
+import { getCurrentMovie } from '../../utilites/selectors/selectors';
 import { checkFilm } from '../../utilites/utilites';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
 import Loading from '../loading/loading';
@@ -25,13 +25,12 @@ const AddReview = () => {
     if (!currentMovie && id && checkFilm(currentMovie, id)) {
       dispatch(fetchCurrentMovieAction(id));
     }
-  },
-  [currentMovie, dispatch, id]
+  }, [currentMovie, dispatch, id]
   );
 
   if (!id) {
     return <Navigate to={AppRoute.NotFound} />;
-  }  
+  }
 
   if (!currentMovie) {
     return <Loading />;

@@ -34,7 +34,7 @@ const FilmCardPromo = () => {
           <div className="film-card__info">
             <FilmPosterElement {...promo.data} />
             <FilmCardDescription movie={promo.data}>
-              <FilmCardButtons {...promo.data} />
+              <FilmCardButtons movie={promo.data} />
             </FilmCardDescription>
           </div>
         </div>
