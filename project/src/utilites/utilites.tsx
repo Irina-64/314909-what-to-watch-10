@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { RatingName, RatingValue } from '../const/enums';
+import { RatingName, RatingValue, AuthorizationStatus, Genre, Favorite } from '../const/enums';
 import Film from '../types/film';
 
 export const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
@@ -13,12 +13,6 @@ export const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true)
 };
 
 export const humanizeRuntime = (runtime: number) => minutesToHoursAndMinutes(runtime, false);
-
-export const getRandomInteger = (a: number, b: number) => {
-  const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
 
 export const humanizeCommentDate = (date: string) => dayjs(date).format('MMMM D, YYYY');
 
@@ -37,7 +31,15 @@ export const getRatingName = (rating: number) => {
   }
 };
 
-export const findMovieById = (movies: readonly Film[], id?: string) => movies.find((movie) => movie.id.toString() === id);
+export const filterFavorites = (movies: readonly Film[]) => movies.filter((movie) => movie.isFavorite);
 
-export const filterFavoriteMovies = (movies: readonly Film[]) => movies.filter((movie) => movie.isFavorite);
+export const filterMoviesByGenre = (movies: Film[], genre: Genre) => {
+  const filteredMovies = movies.filter((movie) => movie.genre === genre);
+  return filteredMovies.length === 0 ? null : filteredMovies;
+};
 
+export const checkAuth = (authorizationStatus: AuthorizationStatus, reference: AuthorizationStatus): boolean => authorizationStatus === reference;
+
+export const getFavoriteStatus = (isFavorite: boolean) => isFavorite ? Favorite.SetNotFavorite : Favorite.SetFavorite;
+
+export const checkFilm = (movie: Film | null | undefined, id: string | undefined) => !movie || movie.id.toString() !== id;

@@ -5,45 +5,43 @@ import UserBlock from '../../common/user-block/user-block';
 import WTWElement from '../../common/wtw/wtw';
 import FilmCardBackground from '../images/film-background/film-card-backgr';
 import FilmPosterElement from '../images/film-poster/film-poster';
-import AddReviewButton from '../movie-buttons/add-review-button/add-review-button';
 import FilmCardButtons from '../movie-buttons/movie-buttons';
-import MyListAddButton from '../movie-buttons/mylist-add-button/mylist-add-button';
-import PlayMovieButton from '../movie-buttons/play-movie-button/play-movie-button';
 import FilmCardDescription from '../card-description/card-description';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import { getMovies, getPromo } from '../../../utilites/selectors/selectors';
-import { filterFavoriteMovies } from '../../../utilites/utilites';
+import { getPromo } from '../../../utilites/selectors/selectors';
+import Loading from '../../../pages/loading/loading';
 
 const FilmCardPromo = () => {
   const promo = useAppSelector(getPromo);
-  const myMovies = filterFavoriteMovies(useAppSelector(getMovies));
 
-  return (
-    <section className="film-card">
-      <FilmCardBackground movie={promo} />
+  if (!promo.isDataLoaded) {
+    return <Loading />;
+  }
 
-      <WTWElement />
+  if (promo.data) {
+    return (
+      <section className="film-card">
+        <FilmCardBackground movie={promo.data} />
 
-      <HeaderElement style={HeaderStyle.FilmCard}>
-        <LogoElement />
-        <UserBlock />
-      </HeaderElement>
+        <WTWElement />
 
-      <div className="film-card__wrap">
-        <div className="film-card__info">
+        <HeaderElement style={HeaderStyle.FilmCard}>
+          <LogoElement />
+          <UserBlock />
+        </HeaderElement>
 
-          <FilmPosterElement {...promo} />
-          <FilmCardDescription movie={promo}>
-            <FilmCardButtons>
-              <PlayMovieButton {...promo} />
-              <MyListAddButton count={myMovies.length} />
-              <AddReviewButton {...promo} />
-            </FilmCardButtons>
-          </FilmCardDescription>
+        <div className="film-card__wrap">
+          <div className="film-card__info">
+            <FilmPosterElement {...promo.data} />
+            <FilmCardDescription movie={promo.data}>
+              <FilmCardButtons movie={promo.data} />
+            </FilmCardDescription>
+          </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
+  }
+  return null;
 };
 
 export default FilmCardPromo;

@@ -1,10 +1,6 @@
 import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
+import { ShowMoreButtonProps } from '../../types/props';
 
-type ShowMoreButtonProps = {
-  totalFilmCount: number;
-  renderedFilmsCount: number;
-  handleShowMoreButtonClick: (count: number) => void;
-};
 
 const ShowMoreButton = ({ totalFilmCount, renderedFilmsCount, handleShowMoreButtonClick }: ShowMoreButtonProps) => {
   const filmsToLoadCount = Math.min((totalFilmCount - renderedFilmsCount), MOVIE_CARD_MAIN_COUNT);

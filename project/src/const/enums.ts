@@ -62,6 +62,49 @@ export enum Action {
   ResetRenderedMovieCount = '/movies/resetRenderedMovieCount',
   SetActiveMovie = 'movies/setActiveMovie'
 }
+
+export enum FetchAction {
+  FetchMovies = 'data/fetchMovies',
+  FetchPromo = 'data/fetchPromo',
+  FetchFavorites = 'data/fetchFavorites',
+  FetchReviews = 'data/fetchReviews',
+  FetchSimilarMovies = '/data/fetchSimilarMovies',
+  FetchCurrentMovie = 'data/fetchCurrentMovie',
+}
+
+export enum LoadAction {
+  LoadMovies = 'movies/loadMovies',
+  LoadPromo = 'movies/loadPromo',
+  LoadFavorites = 'movies/loadFavorites',
+  LoadUserData = 'user/setUserData',
+  LoadReviews = 'review/loadReviews',
+  LoadCurrentMovie = 'movies/loadCurrentMovie',
+  LoadSimilarMovies = 'movies/loadSimilarMovies',
+}
+
+export enum ChangeAction {
+  AddReview = 'review/addReview',
+  ChangeReview = 'review/changeReview',
+  ToggleFavorite = 'movies/setFavorite',
+  ResetFavorites = 'movies/resetFavorites',
+  ChangeGenre = 'movies/genre/changeGenre',
+  ResetGenre = 'movies/genre/resetGenre',
+  ClearError = 'app/clearError',
+}
+
+export enum UserAction {
+  SetAuth = 'user/setAuthorization',
+  ReqAuth = 'user/requireAuthorization',
+  CheckAuth = 'user/checkAuthorizattion',
+  Login = 'user/login',
+  Logout = 'user/logout',
+}
+
+export enum AppAction {
+  SetDataLoaded = 'data/setDataLoaded',
+  RedirectToRoute = 'app/redirectToRoute',
+}
+
 export enum Genre {
   AllGenres = 'AllGenres',
   Adventure = 'Adventure',
@@ -90,4 +133,27 @@ export enum GenreName {
   SciFi = 'Sci-Fi',
   Thriller = 'Thrillers',
   Fantasy = 'Fantasy'
+}
+
+export enum APIRoute {
+  Promo = '/promo',
+  Movies = '/films',
+  Favorites = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+  Review = '/comments'
+}
+
+export enum Favorite {
+  SetFavorite = 1,
+  SetNotFavorite = 0
+}
+
+export enum ErrorMessage {
+  ReviewError = 'Please choose rating and type in your review',
+  SimilarError = 'Failed to load similar movies',
+  CurrentError = 'Failed to load movie',
+  PromoError = 'Failed to load promo',
+  FavoritesError = 'Failed to load favorites',
+  AddFavoriteError = 'Couldn`t add to favorites',
 }
