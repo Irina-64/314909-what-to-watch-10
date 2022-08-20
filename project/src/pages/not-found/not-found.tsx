@@ -1,17 +1,24 @@
-
+import HeaderElement from '../../components/common/header-element/header-element';
 import LogoElement from '../../components/common/logo/logo';
 import FooterElement from '../../components/common/footer/footer';
+import { AppRoute, HeaderStyle } from '../../const/enums';
+import './not-found.css';
 
-function NotFound(): JSX.Element {
-  return (
-    <section className="user-page">
-      <header className="page-header user-page__head">
-        <LogoElement />
-        <h1 className="page-title user-page__title">404 Not Found</h1>
-      </header>
-      <FooterElement />
-    </section>
-  );
-}
+const NotFound = () => (
+  <section className="not-found-page">
+    <HeaderElement style={HeaderStyle.UserPage}>
+      <LogoElement />
+      <h1 className="page-title not-found-page__title">404 Not Found</h1>
+    </HeaderElement>
+    <div className="go-back not-found-page__content">
+      <form action={AppRoute.Main} className="go-back__form">
+        <div className="go-back__submit">
+          <button className="go-back__btn" type="submit">Return to Main Page</button>
+        </div>
+      </form>
+    </div>
+    <FooterElement />
+  </section>
+);
 
 export default NotFound;
