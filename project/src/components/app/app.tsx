@@ -22,6 +22,7 @@ const goToMainPage = <Navigate to={AppRoute.Main} />;
 
 const App = () => {
   const authorizationStatus = useAppSelector(getAuthStatus);
+
   const isDataLoaded = useAppSelector(getIsDataLoaded);
   const isAuth = checkAuth(authorizationStatus, AuthorizationStatus.Auth);
 
@@ -60,7 +61,7 @@ const App = () => {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth} >
+              <PrivateRoute >
                 <MyList />
               </PrivateRoute>
             }

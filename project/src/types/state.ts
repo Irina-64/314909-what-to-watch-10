@@ -14,7 +14,7 @@ export type MainPageInitialState = {
 };
 
 export type MovieInitialState = {
-  currentMovie: Omit<TData<Film | null>, 'isDataLoaded'> & { reviews: TReview[] };
+  currentMovie: Omit<TData<Film | null>, 'isDataLoaded'> & { reviews: TReview[], isIdOK: boolean };
   similarMovies: Omit<TData<Film[]>, 'isDataLoaded'>;
 };
 

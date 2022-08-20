@@ -48,7 +48,7 @@ const AddReview = () => {
         </HeaderElement>
         <FilmPosterElement {...currentMovie} size={PosterSize.Small} />
       </div>
-      <ReviewFormComponent />
+      <ReviewFormComponent movie={currentMovie} />
     </section>
   );
 };

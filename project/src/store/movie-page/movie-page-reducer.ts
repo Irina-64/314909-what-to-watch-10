@@ -1,4 +1,4 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import { MovieInitialState } from '../../types/state';
 import { loadCurrentMovie, loadReviews, loadSimilarMovies } from './movie-page-actions';
 
@@ -6,6 +6,7 @@ const initialState: MovieInitialState = {
   currentMovie: {
     data: null,
     reviews: [],
+    isIdOK: false,
   },
   similarMovies: {
     data: [],

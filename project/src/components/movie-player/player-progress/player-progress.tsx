@@ -12,4 +12,3 @@ const PlayerProgress = ({ runTime, elapsed = 0, isPlaying }: Film & { elapsed?: 
 );
 
 export default PlayerProgress;
-
