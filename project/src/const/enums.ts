@@ -1,17 +1,22 @@
 export enum AppRoute {
-  FilmId = ':id',
   AddReview = '/films/:id/review',
-  Main = '/',
   SignIn = '/sign-in/',
+  Main = '/',
   Films = '/films/',
   Film = '/films/:id',
-  Player = 'player',
-  MoviePlayerPage = '/player/:id',
+  Player = '/player/',
+  MoviePlayer = '/player/:id',
   MyList = '/mylist',
   NotFound = '*',
 }
 
-export enum AuthorizationStatus {
+export enum MovieList {
+  MainPage = 'MAIN',
+  MoviePage = 'SIMILAR',
+  MyListPage = 'MY_LIST',
+}
+
+export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
@@ -48,35 +53,21 @@ export enum FilmNavigation {
   Reviews = 'Reviews',
 }
 
-export enum ApiAddress {
-  Movies = 'https://10.react.pages.academy/wtw/films/'
-}
-
-export enum Action {
-  ChangeGenre = 'movies/genre/changeGenre',
-  ResetGenre = 'movies/genre/resetGenre',
-  GetMovies = 'movies/getMovies',
-  FilterMovies = '/movies/filterMovies',
-  ResetMovies = '/movies/resetMovies',
-  SetRenderedMovieCount = '/movies/setRendereMovieCount',
-  ResetRenderedMovieCount = '/movies/resetRenderedMovieCount',
-  SetActiveMovie = 'movies/setActiveMovie'
+export enum AppAction {
+  RedirectToRoute = 'app/redirectToRoute',
 }
 
 export enum FetchAction {
-  FetchMovies = 'data/fetchMovies',
   FetchPromo = 'data/fetchPromo',
-  FetchFavorites = 'data/fetchFavorites',
+  FetchFilms = 'data/fetchMovies',
+  FetchFilm = 'data/fetchCurrentMovie',
+  FetchSimilarFilms = '/data/fetchSimilarMovies',
   FetchReviews = 'data/fetchReviews',
-  FetchSimilarMovies = '/data/fetchSimilarMovies',
-  FetchCurrentMovie = 'data/fetchCurrentMovie',
+  FetchUserInfo = 'data/fetchUserInfo',
+  FetchFavorites = 'data/fetchFavorites',
 }
 
 export enum LoadAction {
-  LoadMovies = 'movies/loadMovies',
-  LoadPromo = 'movies/loadPromo',
-  LoadFavorites = 'movies/loadFavorites',
-  LoadUserData = 'user/setUserData',
   LoadReviews = 'review/loadReviews',
   LoadCurrentMovie = 'movies/loadCurrentMovie',
   LoadSimilarMovies = 'movies/loadSimilarMovies',
@@ -84,25 +75,16 @@ export enum LoadAction {
 
 export enum ChangeAction {
   AddReview = 'review/addReview',
-  ChangeReview = 'review/changeReview',
+  SetReview = 'review/changeReview',
   ToggleFavorite = 'movies/setFavorite',
-  ResetFavorites = 'movies/resetFavorites',
   ChangeGenre = 'movies/genre/changeGenre',
-  ResetGenre = 'movies/genre/resetGenre',
-  ClearError = 'app/clearError',
 }
 
 export enum UserAction {
   SetAuth = 'user/setAuthorization',
-  ReqAuth = 'user/requireAuthorization',
   CheckAuth = 'user/checkAuthorizattion',
   Login = 'user/login',
   Logout = 'user/logout',
-}
-
-export enum AppAction {
-  SetDataLoaded = 'data/setDataLoaded',
-  RedirectToRoute = 'app/redirectToRoute',
 }
 
 export enum Genre {
@@ -142,11 +124,6 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Review = '/comments'
-}
-
-export enum Favorite {
-  SetFavorite = 1,
-  SetNotFavorite = 0
 }
 
 export enum ErrorMessage {

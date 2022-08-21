@@ -8,13 +8,17 @@ import FilmPosterElement from '../../components/movies/images/film-poster/film-p
 import ReviewBreadcrumbsElm from '../../components/review/review-breadcrumbs/review-breadcrumbs';
 import WTWElement from '../../components/common/wtw/wtw';
 import HeaderElement from '../../components/common/header-element/header-element';
-import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getCurrentMovie } from '../../utilites/selectors/selectors';
-import { checkFilm } from '../../utilites/utilites';
-import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import Loading from '../loading/loading';
-import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
 import ReviewFormComponent from '../../components/review/review-form/review-form';
+import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
+import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
+import { getCurrentMovie } from '../../utilites/selectors/selectors';
+import { checkFilmId } from '../../utilites/utilites';
+import Loading from '../loading/loading';
+import { fetchSimilarMoviesAction } from '../../store/similar-movies/similar-movies-api-actions';
+import { getMovieState } from '../../store/movie/movie-selectors';
+import { getMovies } from '../../store/main-page/main-page-selectors';
+import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
+
 
 const AddReview = () => {
   const { id } = useParams();
@@ -22,7 +26,7 @@ const AddReview = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!currentMovie && id && checkFilm(currentMovie, id)) {
+    if (!currentMovie && id && checkFilmId(currentMovie, id)) {
       dispatch(fetchCurrentMovieAction(id));
     }
   }, [currentMovie, dispatch, id]

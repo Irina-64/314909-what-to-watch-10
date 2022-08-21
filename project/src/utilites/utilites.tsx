@@ -43,3 +43,5 @@ export const checkAuth = (authorizationStatus: AuthorizationStatus, reference: A
 export const getFavoriteStatus = (isFavorite: boolean) => isFavorite ? Favorite.SetNotFavorite : Favorite.SetFavorite;
 
 export const checkFilm = (movie: Film | null | undefined, id: string | undefined) => !movie || movie.id.toString() !== id;
+
+export const checkFilmId = (movies: Film[], id: number) => movies.some((movie) => movie.id === id);

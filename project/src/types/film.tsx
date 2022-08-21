@@ -1,5 +1,6 @@
+import { Genre } from '../const/enums';
+
 type Film = {
-  id: string;
   name: string;
   posterImage: string;
   previewImage: string;
@@ -15,7 +16,10 @@ type Film = {
   runTime: number;
   genre: string;
   released: number;
+  id: string;
   isFavorite: boolean;
+  videoLink: string;
+  previewVideoLink: string;
 };
 
 export default Film;
