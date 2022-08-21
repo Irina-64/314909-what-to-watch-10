@@ -27,7 +27,7 @@ const App = () => {
   const isAuth = checkAuth(authStatus, AuthStatus.Auth);
 
   useEffect(() => {
-    if (isAuth){
+    if (isAuth) {
       store.dispatch(fetchFavoritesAction());
     }
   }, [isAuth]
@@ -45,23 +45,23 @@ const App = () => {
         <Route path={AppRoute.Main}>
           <Route index element={<MainPage />} />
 
-          <Route path={AppRoute.Login} element={<LoginPage />} />
+          <Route path={AppRoute.SignIn} element={<SignIn />} />
 
           <Route path={AppRoute.Player} element={goToMainPage} />
 
           <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
 
-          <Route path={AppRoute.Movies} element={goToMainPage} />
+          <Route path={AppRoute.Films} element={goToMainPage} />
 
-          <Route path={AppRoute.Movie} element={<MoviePage />} />
+          <Route path={AppRoute.Film} element={<MoviePage />} />
 
-          <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
+          <Route path={AppRoute.AddReview} element={<AddReview />} />
 
           <Route
             path={AppRoute.MyList}
             element={
               <PrivateRoute>
-                <MyListPage />
+                <MyList />
               </PrivateRoute>
             }
           />
