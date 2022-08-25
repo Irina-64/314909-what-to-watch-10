@@ -1,5 +1,5 @@
 import { HeaderStyle } from '../../../const/enums';
-import HeaderElement from '../../common/header-element/header-element';
+import HeaderElement from '../../common/header/header-element';
 import LogoElement from '../../common/logo/logo';
 import UserBlock from '../../common/user-block/user-block';
 import WTWElement from '../../common/wtw/wtw';

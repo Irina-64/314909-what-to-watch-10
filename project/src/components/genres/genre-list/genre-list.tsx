@@ -4,7 +4,7 @@ import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
 import { setGenre } from '../../../store/main-page/main-page-actions';
 import { getMainPageState } from '../../../store/main-page/main-page-selectors';
-import GenreItem from '../genre-item/genre-item';
+import GenreElement from '../genre-item/genre-item';
 
 
 const GenresList = () => {
@@ -27,7 +27,7 @@ const GenresList = () => {
   if (movies) {
     return (
       <ul className="catalog__genres-list">
-        {currentGenres.map((genre) => <GenreItem key={genre} genre={genre} selectedGenre={selectedGenre} handleGenreClick={handleGenreClick} />)}
+        {currentGenres.map((genre) => <GenreElement key={genre} genre={genre} selectedGenre={selectedGenre} handleGenreClick={handleGenreClick} />)}
       </ul>
     );
   }

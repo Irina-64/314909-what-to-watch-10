@@ -1,3 +1,4 @@
+import React from 'react';
 import Film from '../../../../types/film';
 
 const FilmCardBackground = ({ movie }: { movie: Film }) => (
@@ -6,4 +7,4 @@ const FilmCardBackground = ({ movie }: { movie: Film }) => (
   </div>
 );
 
-export default FilmCardBackground;
+export default React.memo(FilmCardBackground);

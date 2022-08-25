@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FilmNavigation } from '../../../../const/enums';
 
@@ -10,16 +11,16 @@ type FilmTabProps = {
 }
 
 const FilmTabNavigation = ({ name, activeTab, handleTabEvent }: FilmTabProps) => {
-  const onTabClick = (evt: { preventDefault: () => void; }) => {
-    evt.preventDefault();
+  const onTabClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     handleTabEvent(name);
   };
   return (
     <li className={`film-nav__item ${name === activeTab ? NAV_ITEM_ACTIVE_CLASS : ''}`}>
-      <Link to={`#${name.toLowerCase()}`} className="film-nav__link" onClick={onTabClick}>{name}</Link>
+      <Link to={`${name.toLowerCase()}`} className="film-nav__link" onClick={onTabClick}>{name}</Link>
     </li>
   );
 };
 
-export default FilmTabNavigation;
+export default React.memo(FilmTabNavigation);
 
