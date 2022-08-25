@@ -11,9 +11,9 @@ export const fetchFilmAction = createAsyncThunk<Film, number, {
   state: State,
   extra: AxiosInstance
 }>(
-  FetchAction.FetchMovie,
-  async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<Film>(`${APIRoute.Films}/${id}`);
+  FetchAction.FetchFilm,
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<Film>(`${APIRoute.Movies}/${id}`);
     return data;
   },
 );
@@ -24,8 +24,8 @@ export const fetchReviewsAction = createAsyncThunk<TReview[], number, {
   extra: AxiosInstance
 }>(
   FetchAction.FetchReviews,
-  async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<TReview[]>(`${APIRoute.Review}/${id}`);
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<TReview[]>(`${APIRoute.Review}/${id}`);
     return data;
   },
 );

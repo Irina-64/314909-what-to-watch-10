@@ -27,7 +27,7 @@ const AddReview = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!movie || id !== movie.id) {
+    if (!movie || id !== Number(movie.id)) {
       dispatch(fetchSimilarMoviesAction(id));
     }
   }, [dispatch, id, movie]

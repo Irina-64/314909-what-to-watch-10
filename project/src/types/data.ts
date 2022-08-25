@@ -21,7 +21,7 @@ export type TMainPageData = {
   promo: Film | null;
 }
 
-export type TMoviePageData = {
+export type FilmPageData = {
   similarMovies: Film[];
 }
 
