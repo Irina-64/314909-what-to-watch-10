@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import TMovie from '../../../../types/movie';
-import VideoElement from '../../../video-element/video-element';
+import Film from '../../../types/film';
+import VideoPlayer from '../../video-player/video-player';
 
-const VIDEO_LOADED_DATA = 'loadeddata';
+const VIDEO_LOADED_DATA = 'loaded data';
 
-const MoviePlayerCard = ({movie, isPlaying = false, isPreview = true}: {movie: TMovie, isPlaying: boolean, isPreview: boolean}) => {
+const MoviePlayerCard = ({ movie, isPlaying = false, isPreview = true }: { movie: Film, isPlaying: boolean, isPreview: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,7 +24,7 @@ const MoviePlayerCard = ({movie, isPlaying = false, isPreview = true}: {movie: T
     videoRef.current.pause();
   }, [isLoading, isPlaying]);
 
-  return <VideoElement ref={videoRef} {...{movie, isPlaying, isPreview}}/>;
+  return <VideoPlayer ref={videoRef} {...{ movie, isPlaying, isPreview }} />;
 };
 
 export default MoviePlayerCard;

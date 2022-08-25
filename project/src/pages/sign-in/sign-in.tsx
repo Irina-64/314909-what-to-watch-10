@@ -1,4 +1,4 @@
-import HeaderElement from '../../components/common/header-element/header-element';
+import HeaderElement from '../../components/common/header/header-element';
 import LogoElement from '../../components/common/logo/logo';
 import FooterElement from '../../components/common/footer/footer';
 import SignInForm from '../../components/user/sign-in-form/sign-in-form';

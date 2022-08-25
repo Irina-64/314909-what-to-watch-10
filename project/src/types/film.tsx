@@ -6,15 +6,13 @@ type Film = {
   previewImage: string;
   backgroundImage: string;
   backgroundColor: string;
-  videoLink: string;
-  previewVideoLink: string;
   description: string;
   rating: number;
   scoresCount: number;
   director: string;
   starring: string[];
   runTime: number;
-  genre: string;
+  genre: Genre;
   released: number;
   id: string;
   isFavorite: boolean;

@@ -1,6 +1,7 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../../const/enums';
 
-const ExitPlayerButton = () => <Link to={AppRoute.Main} type="button" className="player__exit" >Exit</Link>;
+const ExitPlayerButton = ({ id }: { id: number }) => <Link to={`${AppRoute.Films}${id}`} type="button" className="player__exit">Exit</Link>;
 
-export default ExitPlayerButton;
+export default React.memo(ExitPlayerButton);

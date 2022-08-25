@@ -7,52 +7,53 @@ import FilmCardBackground from '../../components/movies/images/film-background/f
 import FilmPosterElement from '../../components/movies/images/film-poster/film-poster';
 import ReviewBreadcrumbsElm from '../../components/review/review-breadcrumbs/review-breadcrumbs';
 import WTWElement from '../../components/common/wtw/wtw';
-import HeaderElement from '../../components/common/header-element/header-element';
+import HeaderElement from '../../components/common/header/header-element';
 import ReviewFormComponent from '../../components/review/review-form/review-form';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import { getCurrentMovie } from '../../utilites/selectors/selectors';
 import { checkFilmId } from '../../utilites/utilites';
 import Loading from '../loading/loading';
 import { fetchSimilarMoviesAction } from '../../store/similar-movies/similar-movies-api-actions';
 import { getMovieState } from '../../store/movie/movie-selectors';
 import { getMovies } from '../../store/main-page/main-page-selectors';
-import { fetchCurrentMovieAction } from '../../store/movie-page/movie-page-api-actions';
-
 
 const AddReview = () => {
-  const { id } = useParams();
-  const currentMovie = useAppSelector(getCurrentMovie).data;
+  const id = Number(useParams().id);
+  const { data: { movie }, isLoading } = useAppSelector(getMovieState);
+
+  const movies = useAppSelector(getMovies);
+  const isIdOk = checkFilmId(movies, id);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!currentMovie && id && checkFilmId(currentMovie, id)) {
-      dispatch(fetchCurrentMovieAction(id));
+    if (!movie || id !== movie.id) {
+      dispatch(fetchSimilarMoviesAction(id));
     }
-  }, [currentMovie, dispatch, id]
+  }, [dispatch, id, movie]
   );
 
-  if (!id) {
+  if (!isIdOk) {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  if (!currentMovie) {
+  if (!movie || isLoading) {
     return <Loading />;
   }
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <FilmCardBackground movie={currentMovie} />
+        <FilmCardBackground movie={movie} />
         <WTWElement />
         <HeaderElement>
           <LogoElement />
-          <ReviewBreadcrumbsElm {...currentMovie} />
+          <ReviewBreadcrumbsElm {...movie} />
           <UserBlock />
         </HeaderElement>
-        <FilmPosterElement {...currentMovie} size={PosterSize.Small} />
+        <FilmPosterElement {...movie} size={PosterSize.Small} />
       </div>
-      <ReviewFormComponent movie={currentMovie} />
+      <ReviewFormComponent movie={movie} />
     </section>
   );
 };

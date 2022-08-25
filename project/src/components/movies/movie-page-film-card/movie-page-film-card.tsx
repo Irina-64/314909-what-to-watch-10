@@ -4,7 +4,7 @@ import { AppRoute, HeaderStyle, PosterSize } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
 import Loading from '../../../pages/loading/loading';
-import { fetchMovieAction } from '../../../store/movie/movie-api-actions';
+import { fetchFilmAction } from '../../../store/movie/movie-api-actions';
 import { getMovieState } from '../../../store/movie/movie-selectors';
 import { getMovies } from '../../../store/main-page/main-page-selectors';
 import { checkFilmId } from '../../../utilites/utilites';
@@ -29,8 +29,8 @@ const MoviePageFilmCard = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!movie || id !== movie.id) {
-      dispatch(fetchMovieAction(id));
+    if (!movie || id !== Number(movie.id)) {
+      dispatch(fetchFilmAction(id));
     }
   }, [dispatch, id, movie]);
 

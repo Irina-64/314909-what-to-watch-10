@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../../../const/enums';
 import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector';
 import Film from '../../../../types/film';
-import { getAuthStatus } from '../../../../utilites/selectors/selectors';
+import { getAuthStatus } from '../../../../store/user/user-selectors';
 
 const REVIEW_LINK_SUFFIX = '/review';
 

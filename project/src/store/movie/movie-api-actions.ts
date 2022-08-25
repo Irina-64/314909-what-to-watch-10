@@ -3,17 +3,17 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { FetchAction, APIRoute } from '../../const/enums';
 import AppDispatch from '../../types/app-dispatch';
-import TMovie from '../../types/movie';
+import Film from '../../types/film';
 import TReview from '../../types/review';
 
-export const fetchMovieAction = createAsyncThunk<TMovie, number, {
+export const fetchFilmAction = createAsyncThunk<Film, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   FetchAction.FetchMovie,
   async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<TMovie>(`${APIRoute.Movies}/${id}`);
+    const {data} = await api.get<Film>(`${APIRoute.Films}/${id}`);
     return data;
   },
 );

@@ -11,8 +11,7 @@ const FilmTabs = ({ movie, tab }: { movie: Film, tab?: FilmNavigation }) => {
 
   const handleTabEvent = useCallback(
     (selectedTab: FilmNavigation) => setActiveTab(activeTab === selectedTab ? activeTab : selectedTab)
-    ,
-    [activeTab],
+    , [activeTab]
   );
 
   const getTabElement = (selectedTab: FilmNavigation) => {

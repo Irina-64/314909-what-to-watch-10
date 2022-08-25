@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/enums';
 import { FilmCardProps } from '../../types/props';
-import VideoPlayer from '../video-player/video-player';
+import MovieCardPlayer from '../movie-player/movie-player-card/movie-player-card';
 
 const FilmCardComponent = ({ movie, activeMovieId, handleMouseEvent }: FilmCardProps) => {
   const isPlaying = (movie.id === String(activeMovieId));
@@ -15,7 +15,7 @@ const FilmCardComponent = ({ movie, activeMovieId, handleMouseEvent }: FilmCardP
         <div className="small-film-card__image">
           {!isPlaying
             ? <img src={movie.previewImage} alt={movie.name} width="280" height="175" />
-            : <VideoPlayer movie={movie} isPlaying isMuted isPreview />}
+            : <MovieCardPlayer movie={movie} isPlaying isPreview />}
         </div>
         <h3 className="small-film-card__title">
           {movie.name}

@@ -1,6 +1,6 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import { CurrentMovieInitialState } from '../../types/state';
-import { fetchMovieAction, fetchReviewsAction } from './movie-api-actions';
+import { fetchFilmAction, fetchReviewsAction } from './movie-api-actions';
 
 const initialState: CurrentMovieInitialState = {
   data: {
@@ -12,21 +12,21 @@ const initialState: CurrentMovieInitialState = {
 
 const movieReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchMovieAction.pending, (state, action) => {
+    .addCase(fetchFilmAction.pending, (state, action) => {
       state.isLoading = true;
     })
-    .addCase(fetchMovieAction.rejected, (state) => {
+    .addCase(fetchFilmAction.rejected, (state) => {
       state.data.movie = initialState.data.movie;
       state.isLoading = false;
     })
-    .addCase(fetchMovieAction.fulfilled, (state, action) => {
+    .addCase(fetchFilmAction.fulfilled, (state, action) => {
       state.data.movie = action.payload;
       state.isLoading = false;
     })
-    .addCase(fetchReviewsAction.rejected, (state) =>{
+    .addCase(fetchReviewsAction.rejected, (state) => {
       state.data.reviews = initialState.data.reviews;
     })
-    .addCase(fetchReviewsAction.fulfilled, (state, action) =>{
+    .addCase(fetchReviewsAction.fulfilled, (state, action) => {
       state.data.reviews = action.payload;
     });
 });
