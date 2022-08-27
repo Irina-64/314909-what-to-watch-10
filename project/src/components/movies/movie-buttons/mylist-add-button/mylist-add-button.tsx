@@ -20,7 +20,7 @@ const MyListAddButton = ({ id }: { id: number }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const isInFavorites = favorites.some((evt) => evt.id === String(id));
+  const isInFavorites = favorites.some((evt) => Number(evt.id) === id);
 
   const handleFavoriteAction = useCallback(
     () => {

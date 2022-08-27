@@ -14,7 +14,7 @@ type Film = {
   runTime: number;
   genre: Genre;
   released: number;
-  id: string;
+  id: number;
   isFavorite: boolean;
   videoLink: string;
   previewVideoLink: string;

@@ -5,7 +5,7 @@ import { FilmCardProps } from '../../types/props';
 import MovieCardPlayer from '../movie-player/movie-player-card/movie-player-card';
 
 const FilmCardComponent = ({ movie, activeMovieId, handleMouseEvent }: FilmCardProps) => {
-  const isPlaying = (movie.id === String(activeMovieId));
+  const isPlaying = (Number(movie.id) === activeMovieId);
   const onMouseEnter = () => handleMouseEvent(Number(movie.id));
   const onMouseLeave = () => handleMouseEvent(null);
 

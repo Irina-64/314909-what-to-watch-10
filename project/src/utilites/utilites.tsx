@@ -40,4 +40,4 @@ export const filterMoviesByGenre = (movies: Film[], genre: Genre) => {
 
 export const checkAuth = (authStatus: AuthStatus, reference: AuthStatus): boolean => authStatus === reference;
 
-export const checkFilmId = (movies: Film[], id: number) => movies.some((movie) => movie.id === String(id));
+export const checkFilmId = (movies: Film[], id: number) => movies.some((movie) => movie.id === id);
