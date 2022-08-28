@@ -1,17 +1,17 @@
-import { PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../../const/enums';
+import { AppRoute, AuthStatus } from '../../../const/enums';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import { getAuthStatus } from '../../../utilites/selectors/selectors';
+import { getAuthStatus } from '../../../store/user/user-selectors';
 
 type PrivateRouteProps = {
   children: JSX.Element;
 }
 
 const PrivateRoute = ({ children }: PropsWithChildren<PrivateRouteProps>) => (
-  useAppSelector(getAuthStatus) === AuthorizationStatus.Auth
+  useAppSelector(getAuthStatus) === AuthStatus.Auth
     ? children
     : <Navigate to={AppRoute.SignIn} />
 );
 
-export default PrivateRoute;
+export default React.memo(PrivateRoute);

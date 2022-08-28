@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FilmNavigation } from '../../../const/enums';
 import Film from '../../../types/film';
 import FilmTabNavigation from './tab-control/tab-control';
@@ -6,17 +6,16 @@ import FilmTabDetails from './tab-details/tab-details';
 import FilmTabOverview from './tab-overview/tab-overview';
 import FilmTabReviews from './tab-reviews/tab-reviews';
 
-const FilmTabs = ({ movie }: { movie: Film }) => {
-  const [activeTab, setActiveTab] = useState(FilmNavigation.Overview);
+const FilmTabs = ({ movie, tab }: { movie: Film, tab?: FilmNavigation }) => {
+  const [activeTab, setActiveTab] = useState(tab ?? FilmNavigation.Overview);
 
   const handleTabEvent = useCallback(
-    (tab: FilmNavigation) => setActiveTab(activeTab === tab ? activeTab : tab)
-    ,
-    [activeTab],
+    (selectedTab: FilmNavigation) => setActiveTab(activeTab === selectedTab ? activeTab : selectedTab)
+    , [activeTab]
   );
 
-  const getTabElement = (tab: FilmNavigation) => {
-    switch (tab) {
+  const getTabElement = (selectedTab: FilmNavigation) => {
+    switch (selectedTab) {
       case FilmNavigation.Overview:
         return <FilmTabOverview {...movie} />;
       case FilmNavigation.Details:
@@ -40,4 +39,4 @@ const FilmTabs = ({ movie }: { movie: Film }) => {
   );
 };
 
-export default FilmTabs;
+export default React.memo(FilmTabs);

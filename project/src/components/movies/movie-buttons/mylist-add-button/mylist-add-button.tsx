@@ -1,40 +1,37 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, Favorite } from '../../../../const/enums';
+import { AppRoute, AuthStatus } from '../../../../const/enums';
 import useAppDispatch from '../../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../../hooks/use-app-selector/use-app-selector';
-import { fetchFavoritesAction, toggleFavoriteAction } from '../../../../store/main-page/main-page-api-actions';
-import { getAuthStatus, getFavorites } from '../../../../utilites/selectors/selectors';
+import { fetchFavoritesAction, toggleFavoriteAction } from '../../../../store/user/user-api-actions';
+import { getUserState } from '../../../../store/user/user-selectors';
 import { checkAuth } from '../../../../utilites/utilites';
 import FilmListIcon from '../../images/film-icons/film-list-icon/film-list-icon';
 
 const FAVORITE_SINGLE_STEP = 1;
 const MyListAddButton = ({ id }: { id: number }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const authorizationStatus = useAppSelector(getAuthStatus);
-  const favorites = useAppSelector(getFavorites);
-  const isAuth = checkAuth(authorizationStatus, AuthorizationStatus.Auth);
+  const [favoritesCount, setFavoritesCount] = useState(0);
+
+  const { data: { favorites }, authStatus } = useAppSelector(getUserState);
+
+  const isAuth = checkAuth(authStatus, AuthStatus.Auth);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const isInList = favorites.data.some((fav) => Number(fav.id) === id);
-
-  const favoritesCount = isFavorite
-    ? favorites.data.length + FAVORITE_SINGLE_STEP
-    : favorites.data.length;
+  const isInFavorites = favorites.some((evt) => Number(evt.id) === id);
 
   const handleFavoriteAction = useCallback(
     () => {
-      dispatch(toggleFavoriteAction({
-        id, status: isInList
-          ? Favorite.SetNotFavorite
-          : Favorite.SetFavorite
-      }));
+      dispatch(toggleFavoriteAction({ id, status: Number(!isInFavorites) }));
       setIsFavorite(!isFavorite);
+      setFavoritesCount(isFavorite
+        ? favoritesCount - FAVORITE_SINGLE_STEP
+        : favoritesCount + FAVORITE_SINGLE_STEP);
     }
     ,
-    [dispatch, id, isFavorite, isInList]
+    [dispatch, favoritesCount, id, isFavorite, isInFavorites]
   );
 
   const onFavoriteButtonClick = isAuth
@@ -42,16 +39,19 @@ const MyListAddButton = ({ id }: { id: number }) => {
     : () => navigate(AppRoute.SignIn);
 
   useEffect(() => {
-    dispatch(fetchFavoritesAction());
-    if (isInList) {
-      setIsFavorite(true);
+    if (isAuth && !favorites) {
+      dispatch(fetchFavoritesAction());
     }
-  }, [dispatch, favorites, isInList]
+    if (favorites) {
+      setFavoritesCount(favorites.length);
+      setIsFavorite(isInFavorites);
+    }
+  }, [dispatch, favorites, isAuth, isInFavorites]
   );
 
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={onFavoriteButtonClick}>
-      <FilmListIcon isInList={isInList} />
+      <FilmListIcon isFavorite={isFavorite} />
       <svg viewBox="0 0 19 20" width="19" height="20">
         <use xlinkHref="/my-list/"></use>
       </svg>
@@ -61,4 +61,4 @@ const MyListAddButton = ({ id }: { id: number }) => {
   );
 };
 
-export default MyListAddButton;
+export default React.memo(MyListAddButton);

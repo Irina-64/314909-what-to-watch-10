@@ -1,3 +1,4 @@
+import React from 'react';
 import { PropsWithChildren } from 'react';
 import Film from '../../../types/film';
 
@@ -12,4 +13,4 @@ const FilmCardDescription = ({movie, children}: PropsWithChildren<{movie: Film}>
   </div>
 );
 
-export default FilmCardDescription;
+export default React.memo(FilmCardDescription);

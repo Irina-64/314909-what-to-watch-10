@@ -1,17 +1,17 @@
-import { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Genre } from '../../../const/enums';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
 import { setGenre } from '../../../store/main-page/main-page-actions';
-import { getMovies, getSelectedGenre } from '../../../utilites/selectors/selectors';
-import GenreItem from '../genre-item/genre-item';
+import { getMainPageState } from '../../../store/main-page/main-page-selectors';
+import GenreElement from '../genre-item/genre-item';
 
-const GenreList = () => {
-  const movies = useAppSelector(getMovies).data;
-  const selectedGenre = useAppSelector(getSelectedGenre);
+
+const GenresList = () => {
+  const { data: { movies }, selectedGenre } = useAppSelector(getMainPageState);
   const dispatch = useAppDispatch();
 
-  const currentGenres = [Genre.AllGenres, ...new Set(movies.map((movie) => movie.genre as Genre))];
+  const currentGenres = [Genre.AllGenres, ...new Set(movies.map((movie) => movie.genre))];
 
   const handleGenreClick = useCallback(
     (genre: Genre) => {
@@ -27,11 +27,11 @@ const GenreList = () => {
   if (movies) {
     return (
       <ul className="catalog__genres-list">
-        {currentGenres.map((genre) => <GenreItem key={genre} genre={genre} selectedGenre={selectedGenre} handleGenreClick={handleGenreClick} />)}
+        {currentGenres.map((genre) => <GenreElement key={genre} genre={genre} selectedGenre={selectedGenre} handleGenreClick={handleGenreClick} />)}
       </ul>
     );
   }
   return null;
 };
 
-export default GenreList;
+export default React.memo(GenresList);

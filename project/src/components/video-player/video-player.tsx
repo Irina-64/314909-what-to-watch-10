@@ -1,42 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import Film from '../../types/film';
 
-const VIDEO_LOADED_DATA = 'loaded video';
+const VIDEO_PLAYER_DISPLAY_NAME = 'Video Element';
 
-type FilmPlayerProps = {
+type VideoPlayerProps = {
   movie: Film;
-  isPlaying: boolean;
-  isMuted?: boolean
-  isPreview?: boolean
+  isPreview?: boolean;
+  handleProgressUpdate?: () => void;
 }
 
-const VideoPlayer = ({ movie, isPlaying, isMuted = false, isPreview = false }: FilmPlayerProps) => {
-  const [isLoading, setIsLoading] = useState(true);
+const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
+  (props, ref) => (
+    <video
+      src={props.isPreview
+        ? props.movie.previewVideoLink
+        : props.movie.videoLink}
+      ref={ref}
+      className="player__video"
+      poster={props.movie.previewImage}
+      onTimeUpdate={props.handleProgressUpdate}
+    />
+  )
+);
 
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    if (videoRef.current === null) {
-      return;
-    }
-
-    videoRef.current.addEventListener(VIDEO_LOADED_DATA, () => setIsLoading(!isLoading));
-    videoRef.current.muted = isMuted;
-
-    if (isPlaying && !isLoading && isPreview) {
-      setTimeout(() => videoRef.current?.play(), 1000);
-      return;
-    }
-
-    if (isPlaying && !isLoading && !isPreview) {
-      videoRef.current.play();
-      return;
-    }
-
-    videoRef.current.pause();
-  }, [isLoading, isMuted, isPlaying, isPreview, movie]);
-
-  return <video src={isPreview ? movie.previewVideoLink : movie.videoLink} ref={videoRef} className="player__video" poster={movie.previewImage}/>;
-};
+VideoPlayer.displayName = VIDEO_PLAYER_DISPLAY_NAME;
 
 export default VideoPlayer;

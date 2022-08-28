@@ -4,7 +4,7 @@ import RatingElement from '../rating-element/rating-element';
 import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
 import { addReviewAction } from '../../../store/review/review-api-actions';
 import Film from '../../../types/film';
-import { TReviewState } from '../../../types/review-state';
+import { TReviewState } from '../../../types/state';
 
 const ReviewForm = ({ movie }: { movie: Film }) => {
   const [review, setReview] = useState<TReviewState>({ rating: 0, comment: null });
@@ -24,7 +24,8 @@ const ReviewForm = ({ movie }: { movie: Film }) => {
     }
   };
 
-  const onCommentChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => handleReviewChange({ target: target.name, value: target.value });
+  const onCommentChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => handleReviewChange(
+    { target: target.name, value: target.value });
 
   return (
     <div className="add-review" >

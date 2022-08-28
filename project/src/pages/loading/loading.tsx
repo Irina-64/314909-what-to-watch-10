@@ -1,4 +1,4 @@
-import HeaderElement from '../../components/common/header-element/header-element';
+import HeaderElement from '../../components/common/header/header-element';
 import Spinner from '../../components/spinner/spinner';
 import { HeaderStyle } from '../../const/enums';
 import './loading.css';

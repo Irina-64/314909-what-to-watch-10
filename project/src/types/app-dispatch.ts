@@ -1,5 +1,5 @@
 import { store } from '../store/index';
 
-type TAppDispatch = typeof store.dispatch;
+type AppDispatch = typeof store.dispatch;
 
-export default TAppDispatch;
+export default AppDispatch;

@@ -1,7 +1,8 @@
-import TComment from '../../../../../types/comment';
+import React from 'react';
+import TReview from '../../../../../types/review';
 import { humanizeCommentDate } from '../../../../../utilites/utilites';
 
-const Review = (review: TComment) => {
+const Review = (review: TReview) => {
   const commentDate = humanizeCommentDate(review.date);
 
   return (
@@ -20,4 +21,4 @@ const Review = (review: TComment) => {
   );
 };
 
-export default Review;
+export default React.memo(Review);

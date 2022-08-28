@@ -17,4 +17,4 @@ const GenreItem = ({ genre, selectedGenre, handleGenreClick }: GenreProps) => {
   );
 };
 
-export default GenreItem;
+export default React.memo(GenreItem);

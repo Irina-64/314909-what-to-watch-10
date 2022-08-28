@@ -1,3 +1,4 @@
+import React from 'react';
 import { PosterSize } from '../../../../const/enums';
 import Film from '../../../../types/film';
 
@@ -11,4 +12,4 @@ const FilmPosterElement = ({name, posterImage, size}: PosterProps) => (
   </div>
 );
 
-export default FilmPosterElement;
+export default React.memo(FilmPosterElement);
