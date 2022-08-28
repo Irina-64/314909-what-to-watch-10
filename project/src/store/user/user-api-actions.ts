@@ -44,7 +44,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const loginAction = createAsyncThunk<void, TAuthData, {
+export const loginAction = createAsyncThunk<TUserInfo, TAuthData, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
