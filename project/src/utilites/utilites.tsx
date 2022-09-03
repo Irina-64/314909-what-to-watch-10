@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { RatingName, RatingValue, AuthStatus, Genre } from '../const/enums';
 import Film from '../types/film';
 
-export const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
+export const setMinutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true) => {
   const minutes = totalMinutes % 60;
   const hours = Math.floor(totalMinutes / 60);
   const padTo2Digits = (num: number) => num.toString().padStart(2, '0');
@@ -12,7 +12,7 @@ export const minutesToHoursAndMinutes = (totalMinutes: number, forPlayer = true)
     : `${padTo2Digits(hours)}h ${padTo2Digits(minutes)}m`;
 };
 
-export const humanizeRuntime = (runtime: number) => minutesToHoursAndMinutes(runtime, false);
+export const humanizeRuntime = (runtime: number) => setMinutesToHoursAndMinutes(runtime, false);
 
 export const humanizeCommentDate = (date: string) => dayjs(date).format('MMMM D, YYYY');
 

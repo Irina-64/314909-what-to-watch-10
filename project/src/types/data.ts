@@ -14,15 +14,12 @@ export type TAuthData = {
 export type TCurrentMovieData = {
   movie: Film | null;
   reviews: TReview[];
+  similar: Film[];
 }
 
 export type TMainPageData = {
   movies: Film[];
   promo: Film | null;
-}
-
-export type FilmPageData = {
-  similarMovies: Film[];
 }
 
 export type TUserInfo = {

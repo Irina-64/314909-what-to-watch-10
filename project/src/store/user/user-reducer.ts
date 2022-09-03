@@ -1,13 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthStatus } from '../../const/enums';
-import { UserDataInitialState } from '../../types/state';
+import { UserDataState } from '../../types/state';
 import { checkAuthAction, fetchFavoritesAction, fetchUserInfoAction, loginAction, logoutAction } from './user-api-actions';
 
-const initialState: UserDataInitialState = {
+const initialState: UserDataState = {
   data: {
-    userInfo: null,
-    favorites: [],
-  },
+    userInfo: null;
+    favorites: [];
+  };
   authStatus: AuthStatus.Unknown,
 };
 
