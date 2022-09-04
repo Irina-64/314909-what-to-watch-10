@@ -1,15 +1,24 @@
 import React from 'react';
-import Film from '../../../types/film';
+import { ComponentTestID } from '../../../const/enums';
+import useUserData from '../../../hooks/use-user-data/use-user-data';
 import AddReviewButton from './add-review-button/add-review-button';
-import MyListAddButton from './mylist-add-button/mylist-add-button';
-import PlayMovieButton from './play-movie-button/play-movie-button';
+import MyListButton from './mylist-button/mylist-button';
+import PlayButton from './play-movie-button/play-movie-button';
 
-const FilmCardButtons = ({ movie }: { movie: Film }) => (
-  <div className="film-card__buttons">
-    <PlayMovieButton {...movie} />
-    <MyListAddButton id={Number(movie.id)} />
-    <AddReviewButton {...movie} />
-  </div>
-);
+const FilmButtons = ({id}: {id: number}) => {
+  const {
+    isAuth,
+    isFavorite,
+    favoritesCount,
+    handleFavoriteAction
+  } = useUserData(id);
 
-export default React.memo(FilmCardButtons);
+  return (
+    <div className="film-card__buttons" data-testid={ComponentTestID.FilmButtons}>
+      <PlayButton id={id} />
+      <MyListButton isAuth={isAuth} isFavorite={isFavorite} favoritesCount={favoritesCount} handleFavoriteAction={handleFavoriteAction} />
+      <AddReviewButton id={id} />
+    </div>
+  );};
+
+export default React.memo(FilmButtons);

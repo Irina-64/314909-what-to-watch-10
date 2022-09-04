@@ -1,18 +1,26 @@
 import React from 'react';
-import { GenreName } from '../../../const/enums';
-import { GenreProps } from '../../../types/props';
+import { GENRE_ELEMENT_ACTIVE_CLASS, GENRE_ELEMENT_CLASS } from '../../../const/const';
+import { ElementTestID, Genre } from '../../../const/enums';
+import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
+import { getSelectedGenre } from '../../../store/main-page/main-page-selectors';
+import { humanizeGenreName } from '../../../utilites/utilites';
 
-const GENRE_NAVIGATION_ACTIVE_CLASS = 'catalog__genres-item--active';
+type GenreProps = {
+  genre: Genre;
+  handleGenreChange: (genre: Genre) => void;
+}
 
-const GenreItem = ({ genre, selectedGenre, handleGenreClick }: GenreProps) => {
+const GenreItem = ({genre, handleGenreChange: handleGenreClick}: GenreProps) => {
+  const selectedGenre = useAppSelector(getSelectedGenre);
+
   const onGenreClick = (e: React.MouseEvent) => {
     e.preventDefault();
     handleGenreClick(genre);
   };
 
   return (
-    <li className={`catalog__genres-item ${selectedGenre === genre ? GENRE_NAVIGATION_ACTIVE_CLASS : ''}`}>
-      <a href={`/${genre}`} className="catalog__genres-link" onClick={onGenreClick}>{GenreName[genre]}</a>
+    <li className={genre === selectedGenre ? GENRE_ELEMENT_ACTIVE_CLASS : GENRE_ELEMENT_CLASS} onClick={onGenreClick} data-testid={ElementTestID.GenreElement}>
+      <a href={`/${genre}`} className="catalog__genres-link">{humanizeGenreName(genre)}</a>
     </li>
   );
 };

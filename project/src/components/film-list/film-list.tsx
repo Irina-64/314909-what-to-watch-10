@@ -1,62 +1,27 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MovieList } from '../../const/enums';
-import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import useMovies from '../../hooks/use-movies/use-movies';
-import { fetchSimilarMoviesAction } from '../../store/similar-movies/similar-movies-api-actions';
-import { fetchFavoritesAction } from '../../store/user/user-api-actions';
+import React, { PropsWithChildren } from 'react';
+import useFilmCard from '../../hooks/use-movie-card/use-movie-card';
 import Film from '../../types/film';
-import ShowMoreButton from '../show-more/show-more';
-import FilmCardComponent from '../film-card/film-card';
-import { MOVIE_CARD_MAIN_COUNT, MOVIE_CARD_SIMILAR_COUNT } from '../../const/const';
+import FilmCard from '../film-card/film-card';
 
-const FilmCardsList = ({ movieList, isLong = false }: { movieList: MovieList, isLong?: boolean }) => {
-  const id = Number(useParams().id);
-  const [activeMovieId, setActiveMovieId] = useState<null | number>(null);
-  const [renderedMovieCount, setRenderedMovieCount] = useState(isLong ? MOVIE_CARD_MAIN_COUNT : MOVIE_CARD_SIMILAR_COUNT);
+type FilmCardsListProps = {
+  movies: Film[];
+  testId: string;
+}
 
-  const movies = useMovies(movieList);
-
-  const dispatch = useAppDispatch();
-
-  const handleShowMoreButtonClick = useCallback(
-    (count: number) => {
-      setRenderedMovieCount(() => Math.min(renderedMovieCount + count, movies.length));
-    },
-    [movies, renderedMovieCount],
-  );
-
-  const handleMovieMouseOver = useCallback(
-    (movieId: number | null) => movieId === activeMovieId ? null : setActiveMovieId(movieId),
-    [activeMovieId],
-  );
-
-  useEffect(() => {
-    if (!movies) {
-      switch (true) {
-        case movieList === MovieList.MoviePage && id:
-          dispatch(fetchSimilarMoviesAction(id));
-          break;
-        case movieList === MovieList.MyListPage:
-          dispatch(fetchFavoritesAction());
-          break;
-      }
-    }
-  }, [dispatch, id, movieList, movies]);
-
+const FilmCardsList = ({movies, children, testId}: PropsWithChildren<FilmCardsListProps>) => {
+  const {activeFilmId, handleFilmMouseOver} = useFilmCard();
 
   return (
     <>
-      <div className="catalog__films-list">
-        {movies.slice(0, renderedMovieCount).map(
-          (movie: Film) => <FilmCardComponent key={`${movie.id}-${movie.name}`} movie={movie} activeMovieId={activeMovieId} handleMouseEvent={handleMovieMouseOver} />
+      <div className="catalog__films-list" data-testid={testId}>
+        {movies.map(
+          (movie: Film) => <FilmCard key={`${movie.id}-${movie.name}`} movie={movie} activeFilmId={activeFilmId} handleFilmMouseOver={handleFilmMouseOver} />
         )}
       </div>
-      {!isLong || movies.length <= renderedMovieCount
-        ? null
-        : <ShowMoreButton totalFilmCount={movies.length} renderedFilmsCount={renderedMovieCount} handleShowMoreButtonClick={handleShowMoreButtonClick} />}
+      {children}
     </>
   );
 };
 
 export default React.memo(FilmCardsList);
+

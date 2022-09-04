@@ -1,9 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
-import { Genre } from '../../../const/enums';
-import useAppDispatch from '../../../hooks/use-app-dispatch/use-app-dispatch';
-import useAppSelector from '../../../hooks/use-app-selector/use-app-selector';
-import { setGenre } from '../../../store/main-page/main-page-actions';
-import { getMainPageState } from '../../../store/main-page/main-page-selectors';
+import React from 'react';
+import { ComponentTestID, Genre } from '../../../const/enums';
 import GenreElement from '../genre-item/genre-item';
 
 
