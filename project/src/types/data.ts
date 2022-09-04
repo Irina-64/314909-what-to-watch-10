@@ -11,7 +11,7 @@ export type TAuthData = {
   password: string;
 };
 
-export type TCurrentMovieData = {
+export type TCurrentFilmData = {
   movie: Film | null;
   reviews: TReview[];
   similar: Film[];

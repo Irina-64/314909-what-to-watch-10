@@ -2,7 +2,7 @@ import React from 'react';
 import Film from '../../../../types/film';
 import { getRatingName } from '../../../../utilites/utilites';
 
-const MovieTabOverview = (movie: Film) => {
+const FilmTabOverview = (movie: Film) => {
   const shortStarring = movie.starring.slice(0, 3).join(', ');
 
   return (
@@ -26,4 +26,4 @@ const MovieTabOverview = (movie: Film) => {
   );
 };
 
-export default React.memo(MovieTabOverview);
+export default React.memo(FilmTabOverview);

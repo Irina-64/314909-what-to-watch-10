@@ -1,22 +1,47 @@
-import { Genre, MovieList } from '../../const/enums';
+import { useCallback, useState } from 'react';
+import { MOVIE_CARD_MAIN_COUNT } from '../../const/const';
+import { Genre } from '../../const/enums';
 import { getMainPageState } from '../../store/main-page/main-page-selectors';
-import { getSimilarMovies } from '../../store/similar-movies/similar-movies-selectors';
-import { getFavorites } from '../../store/user/user-selectors';
-import { filterMoviesByGenre } from '../../utilites/utilites';
+import { filterFilmsByGenre, getCurrentGenres, getFilmsToLoadCount } from '../../utilites/utilites';
 import useAppSelector from '../use-app-selector/use-app-selector';
+import { setGenre } from '../../store/main-page/main-page-actions';
+import useAppDispatch from '../use-app-dispatch/use-app-dispatch';
 
-const useMovies = (movieList: MovieList) => {
-  const {data: {movies}, selectedGenre} = useAppSelector(getMainPageState);
-  const filteredMovies = selectedGenre === Genre.AllGenres ? movies : filterMoviesByGenre(movies, selectedGenre);
+const useFilms = () => {
+  const [renderedFilmCount, setRenderedFilmCount] = useState(MOVIE_CARD_MAIN_COUNT);
 
-  const movieListSelector = {
-    [MovieList.MainPage]: filteredMovies,
-    [MovieList.MoviePage]: useAppSelector(getSimilarMovies),
-    [MovieList.MyListPage]: useAppSelector(getFavorites),
+  const {data: {movies: allFilms, promo}, selectedGenre} = useAppSelector(getMainPageState);
+
+  const filteredFilms = filterFilmsByGenre(allFilms, selectedGenre);
+  const currentGenres = getCurrentGenres(allFilms);
+
+  const movies = filteredFilms.slice(0, renderedFilmCount);
+  const moviesToLoadCount = getFilmsToLoadCount(filteredFilms, renderedFilmCount);
+
+  const dispatch = useAppDispatch();
+
+  const handleShowMoreButtonClick = useCallback(
+    (count: number) => {
+      setRenderedFilmCount(() => Math.min(renderedFilmCount + count, allFilms.length));
+    }, [allMovies, renderedFilmCount],
+  );
+
+  const handleGenreChange = useCallback(
+    (genre: Genre) => {
+      dispatch(setGenre(genre));
+      setRenderedFilmCount(MOVIE_CARD_MAIN_COUNT);
+    }, [dispatch]
+  );
+
+  return {
+    movies,
+    promo,
+    moviesToLoadCount,
+    currentGenres,
+    renderedFilmCount,
+    handleGenreChange,
+    handleShowMoreButtonClick
   };
-
-  return movieListSelector[movieList] ?? [];
 };
 
-export default useMovies;
-
+export default useFilms;

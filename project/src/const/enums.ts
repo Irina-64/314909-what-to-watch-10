@@ -2,18 +2,13 @@ export enum AppRoute {
   AddReview = '/films/:id/review',
   SignIn = '/sign-in/',
   Main = '/',
-  Films = '/films/',
   Film = '/films/:id',
-  Player = '/player/',
+  Films = '/films/',
   MoviePlayer = '/player/:id',
   MyList = '/mylist',
+  NonExistent = '/non-existent-route',
   NotFound = '*',
-}
-
-export enum MovieList {
-  MainPage = 'MAIN',
-  MoviePage = 'SIMILAR',
-  MyListPage = 'MY_LIST',
+  Player = '/player/',
 }
 
 export enum AuthStatus {
@@ -36,6 +31,7 @@ export enum RatingName {
 }
 
 export enum RatingValue {
+  NoReviews = 0,
   Normal = 3,
   Good = 5,
   VeryGood = 8,
@@ -58,26 +54,17 @@ export enum AppAction {
 }
 
 export enum FetchAction {
-  FetchPromo = 'data/fetchPromo',
-  FetchFilms = 'data/fetchMovies',
-  FetchFilm = 'data/fetchCurrentMovie',
-  FetchSimilarFilms = '/data/fetchSimilarMovies',
-  FetchReviews = 'data/fetchReviews',
+  FetchMainPageData = 'data/fetchMainPageData',
+  FetchCurrentFilmData = 'data/fetchCurrentFilmData',
   FetchUserInfo = 'data/fetchUserInfo',
   FetchFavorites = 'data/fetchFavorites',
 }
 
-export enum LoadAction {
-  LoadReviews = 'review/loadReviews',
-  LoadCurrentMovie = 'movies/loadCurrentMovie',
-  LoadSimilarMovies = 'movies/loadSimilarMovies',
-}
-
 export enum ChangeAction {
   AddReview = 'review/addReview',
-  SetReview = 'review/changeReview',
   ToggleFavorite = 'movies/setFavorite',
   ChangeGenre = 'movies/genre/changeGenre',
+  ResetCurrentFilm = 'movies/resetCurrentFilm'
 }
 
 export enum UserAction {
@@ -88,7 +75,7 @@ export enum UserAction {
 }
 
 export enum Genre {
-  AllGenres = 'AllGenres',
+  Action = 'Action',
   Adventure = 'Adventure',
   Comedy = 'Comedy',
   Crime = 'Crime',
@@ -102,21 +89,6 @@ export enum Genre {
   Fantasy = 'Fantasy'
 }
 
-export enum GenreName {
-  AllGenres = 'All Genres',
-  Adventure = 'Adventure',
-  Comedy = 'Comedies',
-  Crime = 'Crime',
-  Documentary = 'Documentary',
-  Drama = 'Dramas',
-  Horror = 'Horror',
-  Family = 'Kids & Family',
-  Romance = 'Romance',
-  SciFi = 'Sci-Fi',
-  Thriller = 'Thrillers',
-  Fantasy = 'Fantasy'
-}
-
 export enum APIRoute {
   Promo = '/promo',
   Movies = '/films',
@@ -126,11 +98,96 @@ export enum APIRoute {
   Review = '/comments'
 }
 
-export enum ErrorMessage {
-  ReviewError = 'Please choose rating and type in your review',
-  SimilarError = 'Failed to load similar movies',
-  CurrentError = 'Failed to load movie',
-  PromoError = 'Failed to load promo',
-  FavoritesError = 'Failed to load favorites',
-  AddFavoriteError = 'Couldn`t add to favorites',
+export enum SignInErrorMessage {
+  Email = 'Please enter valid email',
+  Password = 'Password must contain at least one letter and one number'
+}
+
+export enum PageTestID {
+  AddReviewPage = 'test-add-review-page',
+  LoginPage = 'test-login-page',
+  MainPage = 'test-main-page',
+  MoviePage = 'test-movie-page',
+  MoviePlayerPage = 'test-movie-player-page',
+  MyListPage = 'test-my-list-page',
+  NotFoundPage = 'test-not-found-page'
+}
+
+export enum ComponentTestID {
+  AddReviewHeader = 'test-add-review-header',
+  AddReviewForm = 'test-add-review-form',
+  Breadcrumbs = 'test-breadcrumbs',
+  PromoCard = 'test-promo-card',
+  FilmCard = 'test-movie-card',
+  FilmPageCard = 'test-movie-page-card',
+  FilmButtons = 'test-movie-buttons',
+  FilmTabReviews = 'test-movie-tab-reviews',
+  PlaybackToggleButton = 'test-movie-play-button',
+  GenreElement = 'test-genre-element',
+  GenresList = 'test-genres-list',
+  MainFilms = 'test-main-page-movies',
+  SimilarFilms = 'test-similar-movies',
+  FavoriteFilms = 'test-favorite-movies',
+  SignInForm = 'test-sign-in-form',
+  Logo = 'test-WTW'
+}
+
+export enum ElementTestID {
+  Avatar = 'test-avatar',
+  GenreElement = 'test-genre-element',
+  GenreLink = 'test-genre-link',
+  Header = 'test-header',
+  IconAdded = 'test-icon-added',
+  IconPlay = 'test-icon-play',
+  FilmTab = 'test-movie-tab',
+  FilmLink = 'test-movie-link',
+  FilmCardLink = 'test-movie-card-link',
+  MyListButton = 'test-my-list-button',
+  Progress = 'test-progress',
+  Poster = 'test-poster',
+  Login = 'test-login',
+  Passsword = 'test-password',
+  ReviewTextArea = 'test-review-text',
+  Video = 'test-video',
+  UserBlockAuth = 'test-user-block-auth',
+  UserBlockNoAuth = 'test-user-block-no-auth'
+}
+
+export enum ComponentText {
+  Add = '+',
+  AddReview = 'Add review',
+  NoReviews = 'There are no reviews yet.',
+  Rating = 'Rating',
+  Play = 'Play',
+  Pause = 'Pause',
+  Email = 'Email address',
+  MyList = 'My list',
+  FullScreen = 'Full screen',
+  Password = 'Password',
+  SignIn = 'Sign In',
+  SignOut = 'Sign Out',
+  Toggler = 'Toggler',
+  MoreLikeThis = 'More like this',
+  ShowMore = 'Show more',
+  NotFound = '404 Not Found',
+  ToMainPage = 'Return to Main Page',
+  Catalog = 'Catalog',
+  Loading = 'Loading',
+  Post = 'Post',
+  WTW = 'WTW',
+  Footer = '© 2019 What to watch Ltd.',
+  Exit = 'Exit',
+  ReviewPlaceholder = '50 to 400 symbols'
+}
+
+export enum NameSpace {
+  MainPage = 'MAIN',
+  CurrentMovie = 'CURRENT',
+  User = 'USER'
+}
+
+export enum FormParam {
+  ValidateMode = 'onChange',
+  Comment = 'comment',
+  Rating = 'rating'
 }
