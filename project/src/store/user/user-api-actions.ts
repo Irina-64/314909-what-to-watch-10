@@ -1,25 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { toast } from 'react-toastify';
-import { APIRoute, AppRoute, ChangeAction, ErrorMessage, FetchAction, UserAction } from '../../const/enums';
+import { APIRoute, AppRoute, ChangeAction, FetchAction, UserAction } from '../../const/enums';
 import { dropToken, saveToken } from '../../services/token/token';
 import AppDispatch from '../../types/app-dispatch';
 import { TAuthData, TUserInfo } from '../../types/data';
 import { State } from '../../types/state';
 import Film from '../../types/film';
 import { redirectToRoute } from '../common/common-actions';
-
-export const fetchUserInfoAction = createAsyncThunk<TUserInfo, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  FetchAction.FetchUserInfo,
-  async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<TUserInfo>(APIRoute.Login);
-    return data;
-  },
-);
 
 export const fetchFavoritesAction = createAsyncThunk<Film[], undefined, {
   dispatch: AppDispatch,
@@ -33,14 +20,15 @@ export const fetchFavoritesAction = createAsyncThunk<Film[], undefined, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<TUserInfo, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   UserAction.CheckAuth,
-  async (_arg, { dispatch, extra: api }) => {
-    await api.get<TUserInfo>(APIRoute.Login);
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<TUserInfo>(APIRoute.Login);
+    return data;
   },
 );
 
@@ -78,11 +66,7 @@ export const toggleFavoriteAction = createAsyncThunk<void, { id: number, status:
 }>(
   ChangeAction.ToggleFavorite,
   async ({ id, status }, { dispatch, extra: api }) => {
-    try {
-      await api.post<Film>(`${APIRoute.Favorites}/${id}/${status}`);
-    } catch {
-      toast.warn(ErrorMessage.AddFavoriteError);
-    }
+    await api.post<Film>(`${APIRoute.Favorites}/${id}/${status}`);
+    dispatch(fetchFavoritesAction());
   },
 );
-

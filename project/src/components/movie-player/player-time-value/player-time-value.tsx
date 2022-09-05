@@ -1,5 +1,5 @@
 import React from 'react';
-import { humanizeTime } from '../../../../utilites/utilites';
+import { humanizeTime } from '../../../utilites/utilites';
 
 const FilmPlayerTimeValue = ({time}: {time: number}) => {
   const movieTime = humanizeTime(Number(time.toFixed()));

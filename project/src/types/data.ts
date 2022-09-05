@@ -3,7 +3,7 @@ import TReview from './review';
 
 export type TData<T = null> = {
   data: T;
-  isLoading?: boolean;
+  isLoaded: boolean;
 }
 
 export type TAuthData = {

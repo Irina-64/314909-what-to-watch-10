@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { useLayoutEffect } from 'react';
 import { AppRoute, AuthStatus } from '../../const/enums';
 import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
 import AddReview from '../../pages/add-review/add-review';
@@ -7,11 +8,11 @@ import SignIn from '../../pages/sign-in/sign-in';
 import MoviePlayerPage from '../../pages/movie-player/movie-player';
 import MoviePage from '../../pages/movie-page/movie-page';
 import MyList from '../../pages/my-list/my-list';
-import NotFoundPage from '../../pages/not-found/not-found';
+import NotFound from '../../pages/not-found/not-found';
 import { checkAuth } from '../../utilites/utilites';
 import PrivateRoute from '../common/private-route/private-route';
-import HistoryRouter from '../history-route/history-route';
 import { store } from '../../store/index';
+import { useLayoutEffect } from 'react';
 import MainPage from '../../pages/main-page/main-page';
 import { getAuthStatus } from '../../store/user/user-selectors';
 import { fetchFavoritesAction } from '../../store/user/user-api-actions';
@@ -21,7 +22,7 @@ const goToMainPage = <Navigate to={AppRoute.Main} />;
 
 const App = () => {
   const authStatus = useAppSelector(getAuthStatus);
-  const isLoading = useAppSelector(getIsMainDataLoading);
+  const isLoaded = useAppSelector(getIsMainDataLoading);
   const isAuth = checkAuth(authStatus, AuthStatus.Auth);
 
   useLayoutEffect(() => {
@@ -40,7 +41,7 @@ const App = () => {
 
   if (checkAuth(authStatus, AuthStatus.Unknown) || !isLoaded) {
     return (
-      <LoadingPage />
+      <Loading />
     );
   }
 
@@ -49,9 +50,9 @@ const App = () => {
       <Route path={AppRoute.Main}>
         <Route index element={<MainPage />} />
 
-        <Route path={AppRoute.Login} element={<LoginPage />} />
+        <Route path={AppRoute.SignIn} element={<SignIn />} />
 
-        <Route path={AppRoute.FilmPlayer} element={<MoviePlayerPage />} />
+        <Route path={AppRoute.MoviePlayer} element={<MoviePlayerPage />} />
 
         <Route path={AppRoute.Film} element={<MoviePage />} />
 
@@ -59,7 +60,7 @@ const App = () => {
           path={AppRoute.AddReview}
           element={
             <PrivateRoute>
-              <AddReviewPage />
+              <AddReview />
             </PrivateRoute>
           }
         />
@@ -68,7 +69,7 @@ const App = () => {
           path={AppRoute.MyList}
           element={
             <PrivateRoute>
-              <MyListPage />
+              <MyList />
             </PrivateRoute>
           }
         />
@@ -77,7 +78,7 @@ const App = () => {
 
       <Route path={AppRoute.Player} element={goToMainPage} />
       <Route path={AppRoute.Films} element={goToMainPage} />
-      <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
+      <Route path={AppRoute.NotFound} element={<NotFound />} />
     </Routes>
   );
 };

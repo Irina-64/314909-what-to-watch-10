@@ -1,44 +1,61 @@
-import { useEffect } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../const/enums';
-import MoviePlayerFull from '../../components/movie-player/movie-player-full/movie-player-full';
-import useAppDispatch from '../../hooks/use-app-dispatch/use-app-dispatch';
-import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { fetchFilmAction } from '../../store/movie/movie-api-actions';
-import { getMovieState } from '../../store/movie/movie-selectors';
-import { getMovies } from '../../store/main-page/main-page-selectors';
-import { checkFilmId } from '../../utilites/utilites';
-import Loading from '../loading/loading';
+import FilmPlayerProgress from '../../components/movie-player/player-progress/player-progress';
+import FilmPlayerTimeValue from '../../components/movie-player/player-time-value/player-time-value';
+import FilmPlayerToggler from '../../components/movie-player/player-toggler/player-toggler';
+import ExitPlayerButton from '../../components/movie-player/player-buttons/exit-player-button/exit-player-button';
+import PlaybackToggleButton from '../../components/movie-player/player-buttons/play-toggle-button/play-toggle-button';
+import VideoItem from '../../components/video-item/video-item';
+import { ComponentText, PageTestID } from '../../const/enums';
+import useCurrentFilm from '../../hooks/use-current-movie/use-current-movie';
+import useVideoPlayer from '../../hooks/use-video-player/use-video-player';
+import LoadingPage from '../loading/loading';
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 const MoviePlayerPage = () => {
-  const id = Number(useParams().id);
-  const { data: { movie }, isLoading } = useAppSelector(getMovieState);
+  const { movie, isLoading } = useCurrentFilm();
 
-  const movies = useAppSelector(getMovies);
-  const isIdOk = checkFilmId(movies, id);
+  const handleFullScreenAction = useFullScreenHandle();
 
-  const dispatch = useAppDispatch();
+  const {
+    videoRef,
+    playerState,
+    handlePlayButtonToggle,
+    handleProgressUpdate,
+  } = useVideoPlayer();
 
-  useEffect(() => {
-    if (id !== Number(movie?.id)) {
-      dispatch(fetchFilmAction(id));
-    }
-  }, [dispatch, id, movie?.id]
-  );
+  return !movie || isLoading
+    ? <LoadingPage />
+    : (
+      <FullScreen handle={handleFullScreenAction}>
+        <div className="player" data-testid={PageTestID.MoviePlayerPage}>
 
-  if (!isIdOk) {
-    return <Navigate to={AppRoute.NotFound} />;
+          <VideoItem ref={videoRef} {...{ movie, handleProgressUpdate }} />
 
-  }
-  if (isLoading || !movie) {
-    return <Loading />;
-  }
+          <ExitPlayerButton id={movie.id} />
 
-  return (
-    <div className="player">
-      <MoviePlayerFull {...movie} />
-    </div>
-  );
+          <div className="player__controls">
+            <div className="player__controls-row">
+              <div className="player__time">
+                <FilmPlayerProgress {...playerState} />
+                <FilmPlayerToggler {...playerState} />
+              </div>
+              <FilmPlayerTimeValue {...playerState} />
+            </div>
+
+            <div className="player__controls-row">
+              <PlaybackToggleButton {...playerState} handlePlayButtonToggle={handlePlayButtonToggle} />
+              <div className="player__name">{movie.name}</div>
+
+              <button type="button" className="player__full-screen" onClick={handleFullScreenAction.enter}>
+                <svg viewBox="0 0 27 27" width="27" height="27">
+                  <use xlinkHref="#full-screen" />
+                </svg>
+                <span>{ComponentText.FullScreen}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </FullScreen>
+    );
 };
 
 export default MoviePlayerPage;

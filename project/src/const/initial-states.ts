@@ -1,4 +1,4 @@
-import { CurrentMovieState, MainPageState, UserDataState } from '../types/state';
+import { CurrentFilmState, MainPageState, UserDataState } from '../types/state';
 import { ALL_GENRES } from './const';
 import { AuthStatus } from './enums';
 
@@ -11,7 +11,7 @@ export const mainPageInitialState: MainPageState = {
   isLoaded: false,
 };
 
-export const currentMovieInitialState: CurrentMovieState = {
+export const currentFilmInitialState: CurrentFilmState = {
   data: {
     movie: null,
     reviews: [],

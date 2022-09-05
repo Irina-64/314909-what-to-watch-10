@@ -3,31 +3,38 @@ import LogoElement from '../../components/common/logo/logo';
 import FooterElement from '../../components/common/footer/footer';
 import UserBlock from '../../components/common/user-block/user-block';
 import HeaderElement from '../../components/common/header/header-element';
-import { HeaderStyle, MovieList } from '../../const/enums';
-import useAppSelector from '../../hooks/use-app-selector/use-app-selector';
-import { getFavorites } from '../../store/user/user-selectors';
-import MyListTitle from '../../components/my-list-title/my-list-title';
+import { ComponentTestID, ComponentText, HeaderStyle, PageTestID } from '../../const/enums';
+import Loading from '../loading/loading';
+import useUserData from '../../hooks/use-user-data/use-user-data';
 
 const MyListPage = () => {
-  const favorites = useAppSelector(getFavorites);
+  const {favorites, isLoaded} = useUserData();
 
-  return (
-    <div className="user-page">
-      <HeaderElement style={HeaderStyle.UserPage}>
-        <LogoElement />
-        <MyListTitle count={favorites.length} />
-        <UserBlock />
-      </HeaderElement>
+  const hasFavorites = favorites.length > 0;
 
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-        <FilmCardsList movieList={MovieList.MyListPage} isLong />
-      </section>
-
-      <FooterElement />
-    </div>
-  );
+  return !isLoaded
+    ? <Loading />
+    : (
+      <div className="user-page" data-testid={PageTestID.MyListPage}>
+        <HeaderElement style={HeaderStyle.UserPage}>
+          <LogoElement />
+          <h1 className="page-title user-page__title">
+            {ComponentText.MyList}
+            {hasFavorites
+              ? <span className="user-page__film-count">{favorites.length}</span>
+              : null}
+          </h1>
+          <UserBlock />
+        </HeaderElement>
+        <section className="catalog">
+          {hasFavorites
+            ? <h2 className="catalog__title visually-hidden">{ComponentText.Catalog}</h2>
+            : <h2 className="catalog__title">You have no movies in your list.</h2>}
+          <FilmCardsList movies={favorites} testId={ComponentTestID.FavoriteFilms} />
+        </section>
+        <FooterElement />
+      </div>
+    );
 };
 
 export default MyListPage;

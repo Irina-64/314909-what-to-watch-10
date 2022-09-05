@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthStatus, NameSpace } from '../../const/enums';
-import { userInitialState } from '../../types/initial-states';
+import { userInitialState } from '../../const/initial-states';
 import { checkAuthAction, fetchFavoritesAction, loginAction, logoutAction } from './user-api-actions';
 
 export const user = createSlice({
@@ -10,11 +10,11 @@ export const user = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchFavoritesAction.pending, (state) => {
-        state.favorites.isLoaded = false;
+        state.favorites.isLoading = false;
       })
       .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
         state.favorites.data = action.payload;
-        state.favorites.isLoaded = true;
+        state.favorites.isLoading = true;
       })
       .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.authStatus = AuthStatus.Auth;
@@ -33,9 +33,8 @@ export const user = createSlice({
       .addCase(logoutAction.fulfilled, (state) => {
         state.userInfo = userInitialState.userInfo;
         state.favorites.data = userInitialState.favorites.data;
-        state.favorites.isLoaded = userInitialState.favorites.isLoaded;
+        state.favorites.isLoading = userInitialState.favorites.isLoading;
         state.authStatus = AuthStatus.NoAuth;
       });
   }
 });
-

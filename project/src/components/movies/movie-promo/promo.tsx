@@ -5,7 +5,7 @@ import UserBlock from '../../common/user-block/user-block';
 import WTWElement from '../../common/wtw/wtw';
 import FilmCardBackground from '../images/film-background/film-card-backgr';
 import FilmPosterElement from '../images/film-poster/film-poster';
-import FilmCardButtons from '../movie-buttons/movie-buttons';
+import FilmButtons from '../movie-buttons/movie-buttons';
 import FilmCardDescription from '../card-description/card-description';
 import Film from '../../../types/film';
 
